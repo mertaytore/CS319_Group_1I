@@ -50,6 +50,11 @@ public class Terrain extends Item {
         index++;
     }
 
+    public void  setItem(Other_Item item){
+        items[index] = item;
+        index++;
+    }
+
     public void removeItem( String itemType){
 
         int removed = isInTerrain(itemType);
@@ -58,6 +63,7 @@ public class Terrain extends Item {
             for (int i = removed; i < index - 1; i++){
                 items[i] = items[i+1];
             }
+            index--;
         }
     }
 
@@ -108,8 +114,12 @@ public class Terrain extends Item {
         }
         return -1;
     }
-     public Other_Item[] retrieveItemInfo(){
-        return items;
+    public Other_Item retrieveItemInfo(String itemType)
+    {
+        int found;
+        if((found = isInTerrain(itemType)) != -1)
+            return items[found];
+        return null;
      }
     public void updatePowerUp(int tankIndex, int powerIndex){
          if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Tank"))
