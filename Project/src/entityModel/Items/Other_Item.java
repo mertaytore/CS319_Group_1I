@@ -1,4 +1,4 @@
-package entity;
+package entityModel.Items;
 
 /**
  * Created by Apple on 15/04/2017.
@@ -6,11 +6,21 @@ package entity;
 public class Other_Item extends Item{
 
     private boolean isPickable;
+    private String itemType;
 
-    public Other_Item(int x, int y, boolean isPickable) {
+    public String getItemType() {
+        return itemType;
+    }
 
-        super(x, y);
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public Other_Item(boolean isPickable, String itemType) {
+
         this.isPickable = isPickable;
+        this.itemType = itemType;
+
     }
 
     public boolean isPickable() {
