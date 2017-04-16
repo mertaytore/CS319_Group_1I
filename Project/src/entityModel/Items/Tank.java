@@ -5,6 +5,7 @@ import java.util.*;
  */
 public class Tank extends Other_Item implements Movable {
 
+    private int playerNo;
     private int health;
     private int mineNumber;
     private int bulletLevel;
@@ -92,6 +93,14 @@ public class Tank extends Other_Item implements Movable {
             level++;
             health = health*2;
         }
+    }
+
+    public int getPlayerNo() {
+        return playerNo;
+    }
+
+    public void setPlayerNo(int playerNo) {
+        this.playerNo = playerNo;
     }
 
     @Override
