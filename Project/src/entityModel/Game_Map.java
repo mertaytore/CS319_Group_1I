@@ -95,7 +95,7 @@ public class Game_Map {
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
             gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
-            if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet") ==null &&
+            if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet") == null &&
                     gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank") == null &&
                     gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") == null) {
                 unmark(i);
@@ -118,7 +118,7 @@ public class Game_Map {
         for(int i = 0 ; i < index ; i++){
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo(itemType));
             gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
-            if(item != null) {
+            if(item != null && (itemType == "Bullet" || playerNo == ((Tank) item).getPlayerNo())) {
                 if ( item.getDirection().equalsIgnoreCase("Left")) {
                     gameTerrain[marked[i] / 10][marked[i] % 10 - 1].setItem((Other_Item) item);
                     marked[i] = marked[i] - 1;
