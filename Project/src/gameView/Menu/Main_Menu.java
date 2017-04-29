@@ -1,5 +1,6 @@
 package gameView.Menu;
 
+import Game_Controller.Input_Handler;
 import Game_Model.Game;
 import gameView.Game_Screen;
 
@@ -56,10 +57,10 @@ public class Main_Menu extends Menu{
 
         playGameButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-
-                frame.getContentPane().remove(buttonPanel);
-                Game_Screen game_screen = new Game_Screen(frame);
+                Input_Handler input_handler = new Input_Handler();
+                Game_Screen game_screen = new Game_Screen(input_handler);
                 Game game = new Game(game_screen);
+                input_handler.setGame(game);
                 System.out.println("game screen play");
             }
         });
@@ -83,7 +84,4 @@ public class Main_Menu extends Menu{
             }
         });
     }
-
-
-
 }

@@ -86,8 +86,6 @@ public class Game_Map {
         }
     }
     public void addItem(int row, int column, String itemType, String addType){
-        if(itemType.equalsIgnoreCase("Bullet"))
-            addType = ((Tank) gameTerrain[row][column].retrieveItemInfo("Tank")).getDirection();
         gameTerrain[row][column].addItem(itemType, addType);
         if(itemType.equalsIgnoreCase("Bullet")||itemType.equalsIgnoreCase("Tank")||
                 itemType.equalsIgnoreCase("Power Up")){
@@ -95,6 +93,33 @@ public class Game_Map {
             index++;
         }
         screen.displayGame(gameTerrain);
+    }
+    public void fireBullet(int playerNo){
+        int indexPre = index;
+        for(int i = 0 ; i < indexPre ; i++) {
+            Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
+            if(playerNo == ((Tank) item).getPlayerNo()) {
+                if (item.getDirection().equalsIgnoreCase("left")) {
+                    addItem(marked[i] / 10, marked[i] % 10 - 1, "Bullet", item.getDirection());
+                }
+                if (item.getDirection().equalsIgnoreCase("right")) {
+                    addItem(marked[i] / 10, marked[i] % 10 + 1, "Bullet", item.getDirection());
+                }
+                if (item.getDirection().equalsIgnoreCase("down")) {
+                    addItem(marked[i] / 10 + 1, marked[i] % 10, "Bullet", item.getDirection());
+                }
+                if (item.getDirection().equalsIgnoreCase("up")) {
+                    addItem(marked[i] / 10 - 1, marked[i] % 10, "Bullet", item.getDirection());
+                }
+            }
+        }
+    }
+    public void landMine(int playerNo){
+        for(int i = 0 ; i < index ; i++) {
+            Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
+            if(playerNo == ((Tank) item).getPlayerNo())
+                addItem(marked[i] / 10, marked[i] % 10, "Mine", "");
+        }
     }
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
@@ -122,8 +147,8 @@ public class Game_Map {
         }
         for(int i = 0 ; i < index ; i++){
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo(itemType));
-            gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
             if(item != null && (itemType == "Bullet" || playerNo == ((Tank) item).getPlayerNo())) {
+                gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
                 if ( item.getDirection().equalsIgnoreCase("Left")) {
                     gameTerrain[marked[i] / 10][marked[i] % 10 - 1].setItem((Other_Item) item);
                     marked[i] = marked[i] - 1;
@@ -139,6 +164,7 @@ public class Game_Map {
                 }
             }
         }
+        screen.displayGame(gameTerrain);
     }
     public void changeDirection(int playerNo, String direction){
         for(int i = 0 ; i < index ; i++) {
@@ -147,6 +173,7 @@ public class Game_Map {
                 ((Tank) item).setDirection(direction);
             }
         }
+        screen.displayGame(gameTerrain);
     }
     public Terrain retrieveTerrainInfo(int row, int column){
         return gameTerrain[row][column];

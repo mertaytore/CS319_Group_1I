@@ -45,7 +45,6 @@ public class Terrain extends Item {
     }
 
     public void addItem( String itemType, String addType){
-
         items[index] = factory.getItem(itemType, addType);
         index++;
     }
@@ -55,7 +54,7 @@ public class Terrain extends Item {
         index++;
     }
 
-    public void removeItem( String itemType){
+    public void removeItem( String itemType ){
 
         int removed = isInTerrain(itemType);
 
@@ -86,7 +85,7 @@ public class Terrain extends Item {
                 if ((found2 = isInTerrain("Bullet")) != -1) {
                     updateTank(found, found2, "Bullet");
                 }
-                else if ((found2 = isInTerrain("Mine")) != -1) {
+                else if ((found2 = isInTerrain("Mine")) != -1 && !((Harmful_Tool) items[found2]).isVisible()) {
                     updateTank(found, found2, "Mine");
                 }
             }

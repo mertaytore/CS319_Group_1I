@@ -20,6 +20,6 @@ public class Mine extends Harmful_Tool {
                 mineTime.cancel();
             }
         };
-        mineTime.schedule(task, 2000);
+        mineTime.schedule(task, 3000);
     }
 }
