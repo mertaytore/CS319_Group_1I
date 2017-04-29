@@ -16,12 +16,11 @@ import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args){
-        Game_Screen game = new Game_Screen();
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        Main_Menu menu = new Main_Menu(game, frame);
+
+
+        Main_Menu menu = new Main_Menu();
 
         System.out.println("hello");
     }

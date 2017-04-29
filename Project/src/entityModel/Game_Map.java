@@ -1,6 +1,7 @@
 package entityModel;
 
 import entityModel.Items.*;
+import gameView.Game_Screen;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,15 +20,17 @@ public class Game_Map {
     private int column;
     private int index;
     private int [] marked;
+    private Game_Screen screen;
 
     BufferedReader br = null;
     FileReader fr = null;
 
-    public Game_Map(String mapFile, int difficulty) {
+    public Game_Map(Game_Screen screen, String mapFile, int difficulty) {
         this.mapFile = mapFile;
         this.difficulty = difficulty;
         gameTerrain = new Terrain[10][10];
         marked = new int[10];
+        this.screen = screen;
         mapFileReader();
     }
     public void mapFileReader(){
@@ -91,6 +94,7 @@ public class Game_Map {
             marked[index] = row*10 + column;
             index++;
         }
+        screen.displayGame(gameTerrain);
     }
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
@@ -102,6 +106,7 @@ public class Game_Map {
                 index--;
             }
         }
+        screen.displayGame(gameTerrain);
     }
     public void unmark(int i){
         for(int j = i ; j < index -1 ; j++)

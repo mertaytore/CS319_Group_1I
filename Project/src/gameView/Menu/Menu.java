@@ -14,15 +14,17 @@ import javax.swing.*;
  */
 public class Menu {
 
-    private JFrame frame;
-    private Game_Screen gameScreen;
+    protected JFrame frame;
     protected BufferedImage background;
 
-    public Menu(Game_Screen screen, JFrame f) {
+    private Main_Menu main_menu;
+    private Settings_Menu settings_menu;
+    private Score_Menu score_menu;
 
+    public Menu() {
 
-        this.gameScreen = screen;
-        this.frame = f;
+        frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         background = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
 
@@ -32,4 +34,21 @@ public class Menu {
         }catch(IOException e){ System.out.print("no man");}
     }
 
+    public void displaySettingsMenu() {
+
+        settings_menu = new Settings_Menu();
+    }
+
+    public void displayMainMenu() {
+
+        main_menu = new Main_Menu();
+    }
+
+    public void displayHighscoresMenu() {
+        score_menu = new Score_Menu();
+    }
+
+    public void displayCredits() {
+        System.out.println("credits called");
+    }
 }

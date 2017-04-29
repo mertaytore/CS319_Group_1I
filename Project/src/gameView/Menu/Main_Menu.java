@@ -1,5 +1,6 @@
 package gameView.Menu;
 
+import Game_Model.Game;
 import gameView.Game_Screen;
 
 import javax.imageio.ImageIO;
@@ -23,9 +24,13 @@ public class Main_Menu extends Menu{
     private JPanel buttonPanel;
     private BasicOptionPaneUI.ButtonActionListener mainListener;
 
-    public Main_Menu(Game_Screen screen, JFrame frame){
+    public Main_Menu() {
         // inherited frame and background image from Menu
-        super(screen, frame);
+        super();
+        displayMain();
+    }
+
+    public  void displayMain(){
 
         playGameButton = new JButton("Play Game");
         settingsButton = new JButton("Settings");
@@ -51,28 +56,29 @@ public class Main_Menu extends Menu{
 
         playGameButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                screen.displayGame();
+
+                frame.getContentPane().remove(buttonPanel);
+                Game_Screen game_screen = new Game_Screen(frame);
+                Game game = new Game(game_screen);
                 System.out.println("game screen play");
             }
         });
 
         settingsButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                screen.displaySettings();
-                System.out.println("game screen settings display");
+                displaySettingsMenu();
             }
         });
 
         highscoresButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                screen.displayHighscores();
-                System.out.println("game screen highscores display");
+                displayHighscoresMenu();
             }
         });
 
         creditsButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                screen.displayCredits();
+                displayCredits();
                 System.out.println("game screen credits display");
             }
         });
