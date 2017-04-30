@@ -66,17 +66,18 @@ public class Terrain extends Item {
         }
     }
 
-    public void updateItem(){
+    public boolean updateItem(){
 
         int found;
         int found2 = -1;
+        boolean time = false;
         if((found = isInTerrain("Power Up")) != -1){
             if(!items[found].isPickable())
                 removeItem("Power Up");
         }
         if((found = isInTerrain("Tank")) != -1){
             if((found2 = isInTerrain("Power Up")) != -1){
-                updatePowerUp(found, found2);
+                time = updatePowerUp(found, found2);
             }
         }
         boolean visible = false;
@@ -104,6 +105,7 @@ public class Terrain extends Item {
                 removeItem("Obstacle");
             }
         }
+        return time;
     }
     public int isInTerrain(String itemType){
         for(int i = 0 ; i < index; i++){
@@ -120,7 +122,7 @@ public class Terrain extends Item {
             return items[found];
         return null;
      }
-    public void updatePowerUp(int tankIndex, int powerIndex){
+    public boolean updatePowerUp(int tankIndex, int powerIndex){
          if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Tank"))
              ((Tank) items[tankIndex]).upgradeTank();
          else if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Bullet"))
@@ -129,9 +131,12 @@ public class Terrain extends Item {
              ((Tank) items[tankIndex]).setDestructor(true);
          else if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Mine"))
              ((Tank) items[tankIndex]).setMineNumber(((Tank) items[tankIndex]).getMineNumber() + 1);
-         else if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Time"))
-             ;
+         else if(((Power_Up) items[powerIndex]).getPowerUpType().equalsIgnoreCase("Time")){
+             removeItem("Power Up");
+             return true;
+         }
          removeItem("Power Up");
+         return false;
     }
     public void updateTank(int tankIndex, int bulletIndex, String type){
         ((Tank) items[tankIndex]).setHealth

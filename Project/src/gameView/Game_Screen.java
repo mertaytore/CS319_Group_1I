@@ -26,20 +26,43 @@ public class Game_Screen {
     private JFrame frame;
     private JPanel gamePanel;
     private Terrain[][] terrains;
-    private JLabel label1;
-    private  JLabel label2;
-    private JLabel label3;
-    private  JLabel label4;
+    private JLabel p1score;
+    private  JLabel p2score;
+    private JLabel p1health;
+    private  JLabel p2health;
+    private  JLabel time;
+    private Timer timer;
+    int delay = 1000;
+
+    int min = 1; int sec;
 
     public Game_Screen(Input_Handler input_handler) {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        label1 = new JLabel("Player1 Score : 0");
-        label2 = new JLabel("Player2 Score : 0");
-        label3 = new JLabel("");
-        label4 = new JLabel("");
+        p1score = new JLabel("Player1 Score : 0");
+        p2score = new JLabel("Player2 Score : 0");
+        p1health = new JLabel("");
+        p2health = new JLabel("");
+        time = new JLabel("Remaining Time : " + min + " : " + sec);
+        timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(sec == 0) {
+                    min--;
+                    sec = 59;
+                }
+                else
+                    sec--;
+                if(sec == 0 && min == 0) {
+                    timer.stop();
+                    finishGame();
+                }
+                time.setText("Remaining Time : " + min + " : " + sec);
+            }
+        });
+        timer.start();
         gamePanel = new JPanel(){
             public void paintComponent(Graphics g)
             {
@@ -114,9 +137,9 @@ public class Game_Screen {
                             else if(t.getDirection().equalsIgnoreCase("Down"))
                                 rot = "Down";
                             if(t.getPlayerNo() == 1)
-                                label3.setText("Player1 Health : " + t.getHealth() + "  ");
+                                p1health.setText("Player1 Health : " + t.getHealth() + "  ");
                             else if(t.getPlayerNo() == 2)
-                                label4.setText("Player2 Health : " + t.getHealth() + "  ");
+                                p2health.setText("Player2 Health : " + t.getHealth() + "  ");
                         }
                         if(terrains[i][j] instanceof Bush){
                             pathname = "Project/imageFiles/bush.png";
@@ -131,12 +154,12 @@ public class Game_Screen {
 
                         AffineTransformOp op = rotate(img, rot);
 
-                        g.drawImage(op.filter(img,null),  j*getWidth()/10, 20 + i*(getHeight()-20)/10,
-                                getWidth()/10, (getHeight() - 20)/10, this);
+                        g.drawImage(op.filter(img,null),  j*getWidth()/10, 40 + i*(getHeight()-40)/10,
+                                getWidth()/10, (getHeight() - 40)/10, this);
                         if(pathname2 != "") {
                             op = rotate(img2, rot);
-                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, 20 + i * (getHeight()-20) / 10 + height,
-                                    getWidth() / 10 - 2 * width, (getHeight() - 20) / 10 - 2 * height, this);
+                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, 40 + i * (getHeight()-40) / 10 + height,
+                                    getWidth() / 10 - 2 * width, (getHeight() - 40) / 10 - 2 * height, this);
                         }
                     }
                 }
@@ -146,10 +169,11 @@ public class Game_Screen {
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();
         gamePanel.setPreferredSize(new Dimension(500, 500));
-        gamePanel.add(label1);
-        gamePanel.add(label2);
-        gamePanel.add(label3);
-        gamePanel.add(label4);
+        gamePanel.add(p1score);
+        gamePanel.add(p2score);
+        gamePanel.add(p1health);
+        gamePanel.add(p2health);
+        gamePanel.add(time);
         gamePanel.addKeyListener( new KeyListener() {
             public void keyPressed(KeyEvent e){
                 input_handler.checkInput(e.getKeyCode());
@@ -169,8 +193,8 @@ public class Game_Screen {
     }
 
     public void displayScore(int score1, int score2){
-        label1.setText("Player1 Score : " + score1 + "  ");
-        label2.setText("Player2 Score : " + score2 + "  ");
+        p1score.setText("Player1 Score : " + score1 + "  ");
+        p2score.setText("Player2 Score : " + score2 + "  ");
     }
 
     public AffineTransformOp rotate(BufferedImage img, String rot){
@@ -191,8 +215,43 @@ public class Game_Screen {
         return  op;
     }
     public void finishGame(){
+        timer.stop();
         frame.getContentPane().remove(gamePanel);
-        Main_Menu main_menu = new Main_Menu(null);
+        JButton finishB = new JButton("Finish Game");
+        JPanel finish = new JPanel();
+        finish.add(p1score);
+        finish.add(p2score);
+        finish.add(finishB);
+        finishB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                Main_Menu main_menu = new Main_Menu(null);
+            }
+        });
+        frame.getContentPane().add(finish);
+        frame.pack();
+        frame.setVisible(true);
     }
 
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getSec() {
+        return sec;
+    }
+
+    public void setSec(int sec) {
+        if(sec >= 60){
+            this.sec = sec % 60;
+            setMin(getMin() + 1);
+        }
+        else
+            this.sec = sec;
+    }
 }

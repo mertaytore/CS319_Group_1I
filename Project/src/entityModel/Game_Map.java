@@ -125,11 +125,14 @@ public class Game_Map {
     }
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
-            gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
+            boolean time = gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
             if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet") == null &&
                     gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank") == null &&
                     gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") == null) {
                 unmark(i);
+            }
+            if(time){
+                screen.setSec(screen.getSec() + 15);
             }
         }
         screen.displayGame(gameTerrain);

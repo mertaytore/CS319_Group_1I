@@ -53,7 +53,7 @@ public class Tank extends Other_Item implements Movable {
                     destruct.cancel();
                 }
             };
-            destruct.schedule(task,10000);
+            destruct.schedule(task,5000);
         }
     }
 

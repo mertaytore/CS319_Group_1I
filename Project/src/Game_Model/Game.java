@@ -17,12 +17,14 @@ public class Game {
     private Timer gameLoop;
     private TimerTask task;
     private Random randomGenerator = new Random();
+    Game_Screen screen;
     int count;
     String[] powerUp;
     Player player1;
     Player player2;
     public Game(Game_Screen screen){
 
+        this.screen = screen;
         map = new Game_Map(screen, "Project/maps/map.txt" ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
@@ -36,11 +38,12 @@ public class Game {
                 map.move(0);
                 count ++;
                 createPowerUp();
+                updatePlayerScore();
+                screen.displayScore(player1.getScore(), player2.getScore());
                 if(isGameOver()){
                     screen.finishGame();
                     gameLoop.cancel();
                 }
-                screen.displayScore(player1.getScore(), player2.getScore());
             }
         };
         gameLoop.schedule(task,300, 300);
@@ -69,12 +72,35 @@ public class Game {
         }
     }
     public boolean isGameOver(){
-        int[] marked = map.retrieveMarked();
-        for(int i = 0; i < marked.length; i++){
-           Tank tank = (Tank) map.retrieveTerrainInfo(marked[i]/10, marked[i]%10).retrieveItemInfo("Tank");
-           if(tank != null && tank.getHealth() <= 0)
-               return true;
+        Tank tank1 = retrieveTank(1);
+        Tank tank2 = retrieveTank(2);
+        if(tank1 != null && tank1.getHealth() <= 0)
+            player2.setScore(player2.getScore() + 40);
+        else if(tank2 != null && tank2.getHealth() <= 0)
+            player1.setScore(player1.getScore() + 40);
+        else
+            return false;
+        return true;
+    }
+
+    public void updatePlayerScore(){
+        if(!isGameOver()) {
+            int score = screen.getSec()*2 + screen.getMin()*120;
+            Tank tank = retrieveTank(1);
+            player1.setScore(tank.getLevel() * tank.getHealth() + score);
+            tank = retrieveTank(2);
+            player2.setScore(tank.getLevel() * tank.getHealth() + score);
         }
-        return false;
+    }
+
+    public Tank retrieveTank(int playerNo){
+        int[] marked = map.retrieveMarked();
+        for(int i = 0; i < marked.length; i++) {
+            Tank tank = (Tank) map.retrieveTerrainInfo(marked[i] / 10, marked[i] % 10).retrieveItemInfo("Tank");
+            if (tank != null && tank.getPlayerNo() == playerNo) {
+                return tank;
+            }
+        }
+        return null;
     }
 }
