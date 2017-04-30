@@ -38,6 +38,11 @@ public class Main_Menu extends Menu{
         highscoresButton = new JButton("Highscores");
         creditsButton = new JButton("Info and Credits");
 
+        playGameButton.setPreferredSize(new Dimension(200, 40));
+        settingsButton.setPreferredSize(new Dimension(200, 40));
+        highscoresButton.setPreferredSize(new Dimension(200, 40));
+        creditsButton.setPreferredSize(new Dimension(200, 40));
+
         buttonPanel=new JPanel(){
             public void paintComponent(Graphics g)
             {
@@ -45,11 +50,21 @@ public class Main_Menu extends Menu{
             }
         };
 
-        buttonPanel.add(playGameButton);
-        buttonPanel.add(settingsButton);
-        buttonPanel.add(highscoresButton);
-        buttonPanel.add(creditsButton);
         buttonPanel.setPreferredSize(new Dimension(500,500));
+
+
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.insets = new Insets(20, 100, 20, 100);
+
+        buttonPanel.add(playGameButton, gbc);
+        buttonPanel.add(settingsButton, gbc);
+        buttonPanel.add(highscoresButton, gbc);
+        buttonPanel.add(creditsButton, gbc);
 
         frame.getContentPane().add(buttonPanel);
         frame.pack();
@@ -57,11 +72,11 @@ public class Main_Menu extends Menu{
 
         playGameButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
+
                 Input_Handler input_handler = new Input_Handler();
                 Game_Screen game_screen = new Game_Screen(input_handler);
                 Game game = new Game(game_screen);
                 input_handler.setGame(game);
-                System.out.println("game screen play");
             }
         });
 
@@ -75,6 +90,7 @@ public class Main_Menu extends Menu{
 
         highscoresButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
+
                 frame.getContentPane().remove(buttonPanel);
                 displayHighscoresMenu();
             }
@@ -82,8 +98,9 @@ public class Main_Menu extends Menu{
 
         creditsButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
+
+                frame.getContentPane().remove(buttonPanel);
                 displayCredits();
-                System.out.println("game screen credits display");
             }
         });
     }

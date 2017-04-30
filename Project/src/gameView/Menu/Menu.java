@@ -20,15 +20,18 @@ public class Menu {
     private Main_Menu main_menu;
     private Settings_Menu settings_menu;
     private Score_Menu score_menu;
+    private Credits_Screen credits_screen;
 
     public Menu(JFrame frame) {
 
         if(frame == null) {
-            this.frame = new JFrame();
+            this.frame = new JFrame("Battle City");
             this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         else
             this.frame = frame;
+
+        this.frame.setMinimumSize( new Dimension(500,500));
 
         background = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
 
@@ -53,6 +56,6 @@ public class Menu {
     }
 
     public void displayCredits() {
-        System.out.println("credits called");
+        credits_screen = new Credits_Screen(frame);
     }
 }
