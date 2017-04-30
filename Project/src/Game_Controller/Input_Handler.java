@@ -21,6 +21,7 @@ public class Input_Handler {
 
     public void checkInput(int key){
 
+        input="";
         if(key == 37){
             playerNo = 1;
             input = "left";
@@ -41,8 +42,32 @@ public class Input_Handler {
             playerNo = 1;
             input = "Fire";
         }
-        if(key == 32){
+        if(key == 190){
             playerNo = 1;
+            input = "Land";
+        }
+        if(key == 65){
+            playerNo = 2;
+            input = "left";
+        }
+        if(key == 87){
+            playerNo = 2;
+            input = "Up";
+        }
+        if(key == 68){
+            playerNo = 2;
+            input = "Right";
+        }
+        if(key == 83){
+            playerNo = 2;
+            input = "Down";
+        }
+        if(key == 32 ){
+            playerNo = 2;
+            input = "Fire";
+        }
+        if(key == 67){
+            playerNo = 2;
             input = "Land";
         }
         sendInput();
