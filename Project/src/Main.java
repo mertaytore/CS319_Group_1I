@@ -20,7 +20,7 @@ public class Main {
 
 
 
-        Main_Menu menu = new Main_Menu();
+        Main_Menu menu = new Main_Menu(null);
 
         System.out.println("hello");
     }

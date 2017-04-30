@@ -25,9 +25,9 @@ public class Main_Menu extends Menu{
     private JPanel buttonPanel;
     private BasicOptionPaneUI.ButtonActionListener mainListener;
 
-    public Main_Menu() {
+    public Main_Menu(JFrame frame) {
         // inherited frame and background image from Menu
-        super();
+        super(frame);
         displayMain();
     }
 

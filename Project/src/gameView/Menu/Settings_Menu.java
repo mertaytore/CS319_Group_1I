@@ -33,9 +33,9 @@ public class Settings_Menu extends Menu {
     private JPanel settingsPanel;
     private BasicOptionPaneUI.ButtonActionListener settingsListener;
 
-    public Settings_Menu() {
+    public Settings_Menu(JFrame frame) {
         // inherited frame and background image from Menu
-        super();
+        super(frame);
         displaySettings();
     }
 

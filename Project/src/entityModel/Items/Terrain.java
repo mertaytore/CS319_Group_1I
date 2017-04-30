@@ -136,8 +136,6 @@ public class Terrain extends Item {
     public void updateTank(int tankIndex, int bulletIndex, String type){
         ((Tank) items[tankIndex]).setHealth
                 (((Tank) items[tankIndex]).getHealth() - ((Harmful_Tool) items[bulletIndex]).getDamage());
-        if(((Tank) items[tankIndex]).getHealth()==0)
-            removeItem("Tank");
         removeItem(type);
     }
     public void updateObstacle(int obsIndex, int bulletIndex, String type){

@@ -21,10 +21,14 @@ public class Menu {
     private Settings_Menu settings_menu;
     private Score_Menu score_menu;
 
-    public Menu() {
+    public Menu(JFrame frame) {
 
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if(frame == null) {
+            this.frame = new JFrame();
+            this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
+        else
+            this.frame = frame;
 
         background = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
 
@@ -36,16 +40,16 @@ public class Menu {
 
     public void displaySettingsMenu() {
 
-        settings_menu = new Settings_Menu();
+        settings_menu = new Settings_Menu(frame);
     }
 
     public void displayMainMenu() {
 
-        main_menu = new Main_Menu();
+        main_menu = new Main_Menu(frame);
     }
 
     public void displayHighscoresMenu() {
-        score_menu = new Score_Menu();
+        score_menu = new Score_Menu(frame);
     }
 
     public void displayCredits() {

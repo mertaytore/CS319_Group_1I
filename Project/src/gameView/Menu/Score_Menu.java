@@ -18,9 +18,9 @@ public class Score_Menu extends Menu {
     private JPanel scoresPanel;
     private BasicOptionPaneUI.ButtonActionListener scoresListener;
 
-    public Score_Menu() {
+    public Score_Menu(JFrame frame) {
         // inherited frame and background image from Menu
-        super();
+        super(frame);
         displayScores();
     }
 

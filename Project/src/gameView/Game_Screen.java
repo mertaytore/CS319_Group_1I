@@ -2,6 +2,7 @@ package gameView;
 
 import Game_Controller.Input_Handler;
 import entityModel.Items.*;
+import gameView.Menu.Main_Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -161,6 +162,10 @@ public class Game_Screen {
         AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         return  op;
+    }
+    public void finishGame(){
+        frame.getContentPane().remove(gamePanel);
+        Main_Menu main_menu = new Main_Menu(null);
     }
 
 }

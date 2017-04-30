@@ -191,6 +191,9 @@ public class Game_Map {
     public Terrain retrieveTerrainInfo(int row, int column){
         return gameTerrain[row][column];
     }
+    public int[] retrieveMarked(){
+        return marked;
+    }
     public  boolean isTerrainValid(int row, int column, Movable item, String itemType){
         if(row < 10 && row >= 0 && column < 10 && row >= 0) {
             if(itemType.equalsIgnoreCase("Bullet") )
