@@ -67,12 +67,15 @@ public class Main_Menu extends Menu{
 
         settingsButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
+
+                frame.getContentPane().remove(buttonPanel);
                 displaySettingsMenu();
             }
         });
 
         highscoresButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                frame.getContentPane().remove(buttonPanel);
                 displayHighscoresMenu();
             }
         });

@@ -45,7 +45,7 @@ public class Score_Menu extends Menu {
 
         returnB.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-
+                frame.getContentPane().remove(scoresPanel);
                 displayMainMenu();
             }
         });
