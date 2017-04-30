@@ -44,8 +44,8 @@ public class Terrain extends Item {
         return xCoordinate;
     }
 
-    public void addItem( String itemType, String addType){
-        items[index] = factory.getItem(itemType, addType);
+    public void addItem( String itemType, String addType, int damage){
+        items[index] = factory.getItem(itemType, addType, damage);
         index++;
     }
 
@@ -79,13 +79,13 @@ public class Terrain extends Item {
                 updatePowerUp(found, found2);
             }
         }
-
+        boolean visible = false;
         do {
             if ((found = isInTerrain("Tank")) != -1) {
                 if ((found2 = isInTerrain("Bullet")) != -1) {
                     updateTank(found, found2, "Bullet");
                 }
-                else if ((found2 = isInTerrain("Mine")) != -1 && !((Harmful_Tool) items[found2]).isVisible()) {
+                else if ((found2 = isInTerrain("Mine")) != -1 && !(visible = ((Harmful_Tool) items[found2]).isVisible())) {
                     updateTank(found, found2, "Mine");
                 }
             }
@@ -97,7 +97,7 @@ public class Terrain extends Item {
                     updateObstacle(found, found2, "Mine");
                 }
             }
-        }while(found != -1 && found2 != -1);
+        }while(found != -1 && found2 != -1 && !visible);
 
         if((found = isInTerrain("Tank")) != -1 && ((Tank) items[found]).isDestructor()) {
             if (isInTerrain("Obstacle") != -1) {
@@ -141,7 +141,7 @@ public class Terrain extends Item {
     public void updateObstacle(int obsIndex, int bulletIndex, String type){
         ((Obstacle) items[obsIndex]).setHealth
                 (((Obstacle) items[obsIndex]).getHealth() - ((Harmful_Tool) items[bulletIndex]).getDamage());
-        if(((Obstacle) items[obsIndex]).getHealth()==0)
+        if(((Obstacle) items[obsIndex]).getHealth()<=0)
             removeItem("Obstacle");
         removeItem(type);
     }

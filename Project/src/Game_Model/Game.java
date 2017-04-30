@@ -27,8 +27,8 @@ public class Game {
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
-        player1 = new Player();
-        player2 = new Player();
+        player1 = new Player(1);
+        player2 = new Player(2);
         task = new TimerTask() {
             @Override
             public void run() {
@@ -40,9 +40,10 @@ public class Game {
                     screen.finishGame();
                     gameLoop.cancel();
                 }
+                screen.displayScore(player1.getScore(), player2.getScore());
             }
         };
-        gameLoop.schedule(task,3000, 500);
+        gameLoop.schedule(task,300, 300);
     }
 
     public void updatePlayerState(int playerNo, String input){
@@ -63,7 +64,8 @@ public class Game {
             int randomX = randomGenerator.nextInt(10);
             int randomY = randomGenerator.nextInt(10);
             int random = randomGenerator.nextInt(5);
-            map.addItem(randomX, randomY, "Power Up", powerUp[random]);
+            if(map.retrieveTerrainInfo(randomX, randomY).retrieveItemInfo("Obstacle") == null)
+                map.addItem(randomX, randomY, "Power Up", powerUp[random], 0);
         }
     }
     public boolean isGameOver(){

@@ -9,8 +9,8 @@ public class Player {
     int playerNo;
     int score;
 
-    public Player(){
-
+    public Player(int playerNo){
+        this.playerNo = playerNo;
     }
 
     public int getPlayerNo() {

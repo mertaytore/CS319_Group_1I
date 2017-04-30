@@ -9,10 +9,10 @@ public class Harmful_Tool extends Other_Item {
     private int damage;
     private boolean isVisible;
 
-    public Harmful_Tool(boolean isPickable, String itemType ) {
+    public Harmful_Tool(boolean isPickable, String itemType, int damage ) {
         super(isPickable, itemType);
         isVisible = true;
-        damage = 1;
+        this.damage = damage;
     }
 
     public int getDamage() {

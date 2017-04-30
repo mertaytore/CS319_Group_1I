@@ -7,7 +7,7 @@ import entityModel.Items.*;
  */
 public class ItemFactory {
 
-        public Other_Item getItem(String itemType, String addType){
+        public Other_Item getItem(String itemType, String addType, int damage){
             if(itemType == null){
                 return null;
             }
@@ -17,11 +17,11 @@ public class ItemFactory {
 
             } else if(itemType.equalsIgnoreCase("MINE")){
 
-                return new Mine(false, "Mine");
+                return new Mine(false, "Mine", damage);
 
             } else if(itemType.equalsIgnoreCase("BULLET")){
 
-                return new Bullet(false, "Bullet", addType);
+                return new Bullet(false, "Bullet", addType, damage);
             }
             else if(itemType.equalsIgnoreCase("POWER UP")) {
 

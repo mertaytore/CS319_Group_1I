@@ -88,6 +88,7 @@ public class Tank extends Other_Item implements Movable {
     public boolean isNPC() {
         return isNPC;
     }
+
     public void upgradeTank(){
         if(this.level < 4){
             level++;

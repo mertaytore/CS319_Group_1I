@@ -10,8 +10,8 @@ public class Mine extends Harmful_Tool {
 
     Timer mineTime;
     TimerTask task;
-    public Mine(boolean isPickable, String itemType) {
-        super(isPickable, itemType);
+    public Mine(boolean isPickable, String itemType, int damage) {
+        super(isPickable, itemType, damage);
         mineTime = new Timer();
         task = new TimerTask() {
             @Override

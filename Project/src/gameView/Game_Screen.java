@@ -26,13 +26,20 @@ public class Game_Screen {
     private JFrame frame;
     private JPanel gamePanel;
     private Terrain[][] terrains;
-
+    private JLabel label1;
+    private  JLabel label2;
+    private JLabel label3;
+    private  JLabel label4;
 
     public Game_Screen(Input_Handler input_handler) {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        label1 = new JLabel("Player1 Score : 0");
+        label2 = new JLabel("Player2 Score : 0");
+        label3 = new JLabel("");
+        label4 = new JLabel("");
         gamePanel = new JPanel(){
             public void paintComponent(Graphics g)
             {
@@ -67,7 +74,7 @@ public class Game_Screen {
                             if(pow.getPowerUpType().equalsIgnoreCase("Time"))
                                 pathname = "Project/imageFiles/extra_time.png";
                             if(pow.getPowerUpType().equalsIgnoreCase("Destructor"))
-                                pathname = "Project/imageFiles/bric_rider.png";
+                                pathname = "Project/imageFiles/brick_rider.png";
                         }
                         else if(terrains[i][j] instanceof Ground){
                             pathname = "Project/imageFiles/player_base.png";
@@ -91,7 +98,14 @@ public class Game_Screen {
                             }
                         }
                         if((t = (Tank) terrains[i][j].retrieveItemInfo("Tank")) != null ) {
-                            pathname = "Project/imageFiles/green_level_1.png";
+                            if(t.getLevel() == 1)
+                                pathname = "Project/imageFiles/green_level_1.png";
+                            else if(t.getLevel() == 2)
+                                pathname = "Project/imageFiles/green_level_2.png";
+                            else if(t.getLevel() == 3)
+                                pathname = "Project/imageFiles/green_level_3.png";
+                            else if(t.getLevel() == 4)
+                                pathname = "Project/imageFiles/green_level_4.png";
                             pathname2 = "";
                             if(t.getDirection().equalsIgnoreCase("Left"))
                                 rot = "Left";
@@ -99,6 +113,10 @@ public class Game_Screen {
                                 rot = "Right";
                             else if(t.getDirection().equalsIgnoreCase("Down"))
                                 rot = "Down";
+                            if(t.getPlayerNo() == 1)
+                                label3.setText("Player1 Health : " + t.getHealth() + "  ");
+                            else if(t.getPlayerNo() == 2)
+                                label4.setText("Player2 Health : " + t.getHealth() + "  ");
                         }
                         if(terrains[i][j] instanceof Bush){
                             pathname = "Project/imageFiles/bush.png";
@@ -113,12 +131,12 @@ public class Game_Screen {
 
                         AffineTransformOp op = rotate(img, rot);
 
-                        g.drawImage(op.filter(img,null), j*getWidth()/10, i*getHeight()/10,
-                                getWidth()/10, getHeight()/10, this);
+                        g.drawImage(op.filter(img,null),  j*getWidth()/10, 20 + i*(getHeight()-20)/10,
+                                getWidth()/10, (getHeight() - 20)/10, this);
                         if(pathname2 != "") {
                             op = rotate(img2, rot);
-                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, i * getHeight() / 10 + height,
-                                    getWidth() / 10 - 2 * width, getHeight() / 10 - 2 * height, this);
+                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, 20 + i * (getHeight()-20) / 10 + height,
+                                    getWidth() / 10 - 2 * width, (getHeight() - 20) / 10 - 2 * height, this);
                         }
                     }
                 }
@@ -128,6 +146,10 @@ public class Game_Screen {
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();
         gamePanel.setPreferredSize(new Dimension(500, 500));
+        gamePanel.add(label1);
+        gamePanel.add(label2);
+        gamePanel.add(label3);
+        gamePanel.add(label4);
         gamePanel.addKeyListener( new KeyListener() {
             public void keyPressed(KeyEvent e){
                 input_handler.checkInput(e.getKeyCode());
@@ -144,6 +166,11 @@ public class Game_Screen {
 
         this.terrains = terrains;
         gamePanel.repaint();
+    }
+
+    public void displayScore(int score1, int score2){
+        label1.setText("Player1 Score : " + score1 + "  ");
+        label2.setText("Player2 Score : " + score2 + "  ");
     }
 
     public AffineTransformOp rotate(BufferedImage img, String rot){

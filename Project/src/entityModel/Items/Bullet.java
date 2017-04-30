@@ -8,8 +8,8 @@ public class Bullet extends Harmful_Tool implements Movable {
     private int bulletLevel;
     private String direction;
 
-    public Bullet(boolean isPickable, String itemType, String direction) {
-        super(isPickable, itemType);
+    public Bullet(boolean isPickable, String itemType, String direction, int damage ) {
+        super(isPickable, itemType, damage);
         this.direction = direction;
         this.bulletLevel = 1;
     }
