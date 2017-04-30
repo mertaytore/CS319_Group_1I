@@ -23,6 +23,11 @@ public class Credits_Screen extends Menu {
     public void displayCredits(){
 
         returnB = new JButton("return");
+        final JTextArea credits = new JTextArea("Developers:\n Muhammed Yusuf Satıcı\n Mert Aytore\n Mehmet Orçun Yalçın\n" +
+                "\n CS319-01 -- Group I \n Course Instructor: Bora Güngören\n\n " +
+                "Battle City is a Java-based desktop application created for the course\n CS319 in Bilkent University, Spring 2017",40,60);
+
+        credits.setEditable(false);
 
         creditsPanel=new JPanel(){
             public void paintComponent(Graphics g){
@@ -30,7 +35,13 @@ public class Credits_Screen extends Menu {
             }
         };
 
-        creditsPanel.add(returnB);
+        creditsPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        creditsPanel.add(credits, gbc);
+        creditsPanel.add(returnB, gbc);
 
         creditsPanel.setPreferredSize(new Dimension(500,500));
 

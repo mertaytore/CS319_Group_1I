@@ -25,7 +25,7 @@ public class Menu {
     public Menu(JFrame frame) {
 
         if(frame == null) {
-            this.frame = new JFrame();
+            this.frame = new JFrame("Battle City");
             this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         else
