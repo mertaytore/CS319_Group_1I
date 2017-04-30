@@ -22,7 +22,7 @@ public class Credits_Screen extends Menu {
 
     public void displayCredits(){
 
-        returnB = new JButton("return");
+        returnB = new JButton("Back to Main Menu");
         final JTextArea credits = new JTextArea("Developers:\n Muhammed Yusuf Satıcı\n Mert Aytore\n Mehmet Orçun Yalçın\n" +
                 "\n CS319-01 -- Group I \n Course Instructor: Bora Güngören\n\n " +
                 "Battle City is a Java-based desktop application created for the course\n CS319 in Bilkent University, Spring 2017",40,60);

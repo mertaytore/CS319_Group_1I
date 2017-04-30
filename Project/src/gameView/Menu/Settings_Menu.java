@@ -56,7 +56,7 @@ public class Settings_Menu extends Menu {
         fire2 = new JTextField("fire key");
         land2 = new JTextField("land key");
         change = new JButton("Change Settings");
-        returnB = new JButton("return");
+        returnB = new JButton("Back to Main Menu");
 
         pl1.setForeground(Color.white);
         pl2.setForeground(Color.white);
