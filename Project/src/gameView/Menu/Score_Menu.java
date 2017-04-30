@@ -1,5 +1,6 @@
 package gameView.Menu;
 
+import Game_Model.Highscores;
 import gameView.Game_Screen;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 /**
  * Created by mertaytore on 24/4/17.
@@ -26,7 +28,19 @@ public class Score_Menu extends Menu {
 
     public void displayScores(){
 
-        returnB = new JButton("return");
+        returnB = new JButton("Back to Main Menu");
+
+        Highscores scores = new Highscores();
+        String[] playerNames = scores.getHighScoresNames();
+        int[] playerScores = scores.getHighScores();
+        String scorebuilder = "";
+        for (int i = 0; i < 10; ++i){
+            scorebuilder = scorebuilder + playerNames[i] + " " + String.valueOf(playerScores[i]) + "\n";
+        }
+
+        final JTextArea scoreTable = new JTextArea(scorebuilder,40,100);
+
+        scoreTable.setEditable(false);
 
         scoresPanel=new JPanel(){
             public void paintComponent(Graphics g)
@@ -35,7 +49,13 @@ public class Score_Menu extends Menu {
             }
         };
 
-        scoresPanel.add(returnB);
+        scoresPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        scoresPanel.add(scoreTable, gbc);
+        scoresPanel.add(returnB, gbc);
 
         scoresPanel.setPreferredSize(new Dimension(500,500));
 
