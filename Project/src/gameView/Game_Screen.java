@@ -214,10 +214,12 @@ public class Game_Screen {
     }
 
     public void displayScore(int score1, int score2){
-        p1score.setText("Player1 Score : " + score1 + "  ");
-        p2score.setText("Player2 Score : " + score2 + "  ");
-        this.score1 = score1;
-        this.score2 = score2;
+        if(min !=0 || sec != 0) {
+            p1score.setText("Player1 Score : " + score1 + "  ");
+            p2score.setText("Player2 Score : " + score2 + "  ");
+            this.score1 = score1;
+            this.score2 = score2;
+        }
     }
 
     public AffineTransformOp rotate(BufferedImage img, String rot){

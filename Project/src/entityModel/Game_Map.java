@@ -135,7 +135,7 @@ public class Game_Map {
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
             if(item != null && playerNo == ((Tank) item).getPlayerNo() && ((Tank) item).getMineNumber() > 0) {
                 addItem(marked[i] / 10, marked[i] % 10, "Mine", "", 1);
-                ((Harmful_Tool) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet"))
+                ((Harmful_Tool) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Mine"))
                         .setTank(((Tank) item).getPlayerNo());
                 ((Tank) item).setMineNumber(((Tank) item).getMineNumber() - 1);
             }
@@ -144,9 +144,9 @@ public class Game_Map {
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
             boolean time = gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
-            if(gameTerrain[marked[i] / 10][marked[i] % 10].tankNo != 0) {
-                findTank(gameTerrain[marked[i] / 10][marked[i] % 10].tankNo);
-                gameTerrain[marked[i] / 10][marked[i] % 10].tankNo = 0;
+            if(Terrain.tankNo != 0) {
+                findTank(Terrain.tankNo);
+                Terrain.tankNo = 0;
             }
             unmark(i);
             if(time){
@@ -186,8 +186,9 @@ public class Game_Map {
         }
         int preIndex = index;
         for(int i = 0 ; i < preIndex ; i++){
-            if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") != null ||
-                    gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Obstacle") != null  )
+            if((gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") != null ||
+                    gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Obstacle") != null)
+                    && itemType == "Tank"  )
                 continue;
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo(itemType));
             if(item != null && (itemType == "Bullet" || playerNo == ((Tank) item).getPlayerNo())) {
@@ -220,6 +221,8 @@ public class Game_Map {
                     unmark(i);
                 }
             }
+            if(item != null && itemType == "Tank" && playerNo == ((Tank) item).getPlayerNo())
+                break;
         }
         screen.displayGame(gameTerrain);
     }

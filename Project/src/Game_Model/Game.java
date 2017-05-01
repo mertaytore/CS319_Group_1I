@@ -59,8 +59,10 @@ public class Game {
         }
         else{
             boolean changed = map.changeDirection(playerNo, input);
-            if(!changed)
+            if(!changed) {
+                map.updateItems();
                 map.move(playerNo);
+            }
         }
     }
     public void createPowerUp(){
