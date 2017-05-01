@@ -25,7 +25,7 @@ public class Game {
     public Game(Game_Screen screen){
 
         this.screen = screen;
-        map = new Game_Map(screen, "Project/maps/mapMedium.txt" ,1);
+        map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";

@@ -73,11 +73,8 @@ public class Main_Menu extends Menu{
         playGameButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                frame.dispose();
-                Input_Handler input_handler = new Input_Handler();
-                Game_Screen game_screen = new Game_Screen(input_handler);
-                Game game = new Game(game_screen);
-                input_handler.setGame(game);
+                frame.getContentPane().remove(buttonPanel);
+                displayGameOptions();
             }
         });
 

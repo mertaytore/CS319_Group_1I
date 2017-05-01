@@ -21,6 +21,7 @@ public class Menu {
     private Settings_Menu settings_menu;
     private Score_Menu score_menu;
     private Credits_Screen credits_screen;
+    private Game_Options game_options;
 
     public Menu(JFrame frame) {
 
@@ -31,7 +32,7 @@ public class Menu {
         else
             this.frame = frame;
 
-        this.frame.setMinimumSize( new Dimension(500,500));
+        this.frame.setMinimumSize( new Dimension(600,600));
 
         background = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
 
@@ -44,6 +45,11 @@ public class Menu {
     public void displaySettingsMenu() {
 
         settings_menu = new Settings_Menu(frame);
+    }
+
+    public void displayGameOptions() {
+
+        game_options = new Game_Options(frame);
     }
 
     public void displayMainMenu() {
