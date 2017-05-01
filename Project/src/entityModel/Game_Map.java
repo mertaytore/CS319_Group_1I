@@ -29,7 +29,7 @@ public class Game_Map {
         this.mapFile = mapFile;
         this.difficulty = difficulty;
         gameTerrain = new Terrain[10][10];
-        marked = new int[20];
+        marked = new int[25];
         this.screen = screen;
         mapFileReader();
     }
@@ -98,16 +98,20 @@ public class Game_Map {
         for(int i = 0 ; i < indexPre ; i++) {
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
             if(item != null && playerNo == ((Tank) item).getPlayerNo()) {
-                if (item.getDirection().equalsIgnoreCase("left") )
+                if (item.getDirection().equalsIgnoreCase("left")
+                        && gameTerrain[marked[i] / 10][marked[i] % 10 - 1].retrieveItemInfo("Bullet") == null)
                     addItem(marked[i] / 10, marked[i] % 10 - 1, "Bullet",
                             item.getDirection(), ((Tank) item).getBulletLevel());
-                if (item.getDirection().equalsIgnoreCase("right"))
+                if (item.getDirection().equalsIgnoreCase("right")
+                        && gameTerrain[marked[i] / 10][marked[i] % 10 + 1].retrieveItemInfo("Bullet") == null)
                     addItem(marked[i] / 10, marked[i] % 10 + 1, "Bullet",
                             item.getDirection(), ((Tank) item).getBulletLevel());
-                if (item.getDirection().equalsIgnoreCase("down"))
+                if (item.getDirection().equalsIgnoreCase("down")
+                        && gameTerrain[marked[i] / 10 + 1][marked[i] % 10].retrieveItemInfo("Bullet") == null)
                     addItem(marked[i] / 10 + 1, marked[i] % 10,
                             "Bullet", item.getDirection(), ((Tank) item).getBulletLevel());
-                if (item.getDirection().equalsIgnoreCase("up"))
+                if (item.getDirection().equalsIgnoreCase("up")
+                        && gameTerrain[marked[i] / 10 - 1][marked[i] % 10].retrieveItemInfo("Bullet") == null)
                     addItem(marked[i] / 10 - 1, marked[i] % 10,
                             "Bullet", item.getDirection(), ((Tank) item).getBulletLevel());
             }
@@ -149,7 +153,7 @@ public class Game_Map {
         int value = row*10 + column;
         for(int i = 0; i < index; i++) {
             if (marked[i] == value)
-                unmark(i);
+                return;
         }
         marked[index] = row*10 + column;
         index++;
