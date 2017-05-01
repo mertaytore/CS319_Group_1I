@@ -168,6 +168,9 @@ public class Game_Map {
         }
         int preIndex = index;
         for(int i = 0 ; i < preIndex ; i++){
+            if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") != null ||
+                    gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Obstacle") != null  )
+                continue;
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo(itemType));
             if(item != null && (itemType == "Bullet" || playerNo == ((Tank) item).getPlayerNo())) {
                 if ( item.getDirection().equalsIgnoreCase("Left") &&
