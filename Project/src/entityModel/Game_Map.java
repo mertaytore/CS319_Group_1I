@@ -99,21 +99,33 @@ public class Game_Map {
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
             if(item != null && playerNo == ((Tank) item).getPlayerNo()) {
                 if (item.getDirection().equalsIgnoreCase("left")
-                        && gameTerrain[marked[i] / 10][marked[i] % 10 - 1].retrieveItemInfo("Bullet") == null)
+                        && gameTerrain[marked[i] / 10][marked[i] % 10 - 1].retrieveItemInfo("Bullet") == null) {
                     addItem(marked[i] / 10, marked[i] % 10 - 1, "Bullet",
                             item.getDirection(), ((Tank) item).getBulletLevel());
+                    ((Harmful_Tool) gameTerrain[marked[i] / 10][marked[i] % 10 - 1].retrieveItemInfo("Bullet"))
+                            .setTank(((Tank) item).getPlayerNo());
+                }
                 if (item.getDirection().equalsIgnoreCase("right")
-                        && gameTerrain[marked[i] / 10][marked[i] % 10 + 1].retrieveItemInfo("Bullet") == null)
+                        && gameTerrain[marked[i] / 10][marked[i] % 10 + 1].retrieveItemInfo("Bullet") == null) {
                     addItem(marked[i] / 10, marked[i] % 10 + 1, "Bullet",
                             item.getDirection(), ((Tank) item).getBulletLevel());
+                    ((Harmful_Tool) gameTerrain[marked[i] / 10][marked[i] % 10 + 1].retrieveItemInfo("Bullet"))
+                            .setTank(((Tank) item).getPlayerNo());
+                }
                 if (item.getDirection().equalsIgnoreCase("down")
-                        && gameTerrain[marked[i] / 10 + 1][marked[i] % 10].retrieveItemInfo("Bullet") == null)
+                        && gameTerrain[marked[i] / 10 + 1][marked[i] % 10].retrieveItemInfo("Bullet") == null) {
                     addItem(marked[i] / 10 + 1, marked[i] % 10,
                             "Bullet", item.getDirection(), ((Tank) item).getBulletLevel());
+                    ((Harmful_Tool) gameTerrain[marked[i] / 10 + 1][marked[i] % 10].retrieveItemInfo("Bullet"))
+                            .setTank(((Tank) item).getPlayerNo());
+                }
                 if (item.getDirection().equalsIgnoreCase("up")
-                        && gameTerrain[marked[i] / 10 - 1][marked[i] % 10].retrieveItemInfo("Bullet") == null)
+                        && gameTerrain[marked[i] / 10 - 1][marked[i] % 10].retrieveItemInfo("Bullet") == null) {
                     addItem(marked[i] / 10 - 1, marked[i] % 10,
                             "Bullet", item.getDirection(), ((Tank) item).getBulletLevel());
+                    ((Harmful_Tool) gameTerrain[marked[i] / 10 - 1][marked[i] % 10].retrieveItemInfo("Bullet"))
+                            .setTank(((Tank) item).getPlayerNo());
+                }
             }
         }
     }
@@ -123,6 +135,8 @@ public class Game_Map {
             Movable item = ((Movable) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank"));
             if(item != null && playerNo == ((Tank) item).getPlayerNo() && ((Tank) item).getMineNumber() > 0) {
                 addItem(marked[i] / 10, marked[i] % 10, "Mine", "", 1);
+                ((Harmful_Tool) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet"))
+                        .setTank(((Tank) item).getPlayerNo());
                 ((Tank) item).setMineNumber(((Tank) item).getMineNumber() - 1);
             }
         }
@@ -130,6 +144,10 @@ public class Game_Map {
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
             boolean time = gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
+            if(gameTerrain[marked[i] / 10][marked[i] % 10].tankNo != 0) {
+                findTank(gameTerrain[marked[i] / 10][marked[i] % 10].tankNo);
+                gameTerrain[marked[i] / 10][marked[i] % 10].tankNo = 0;
+            }
             unmark(i);
             if(time){
                 screen.setSec(screen.getSec() + 15);
@@ -235,5 +253,14 @@ public class Game_Map {
             }
         }
         return false;
+    }
+    public  void findTank(int tankNo){
+        for(int i = 0 ; i < index ; i++) {
+            Tank tank = (Tank) gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank");
+            if(tank != null && tank.getPlayerNo() == tankNo)
+                tank.setDestroyedBrick(tank.getDestroyedBrick() + 1);
+            else if(tank != null && tank.getPlayerNo() == tankNo - 2)
+                tank.setDestroyedSteel(tank.getDestroyedSteel() + 1);
+        }
     }
 }

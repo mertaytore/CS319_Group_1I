@@ -7,6 +7,7 @@ import entityModel.ItemFactory;
  */
 public class Terrain extends Item {
 
+    public static int tankNo;
     private int xCoordinate;
     private int yCoordinate;
     private boolean isVisible;
@@ -101,7 +102,11 @@ public class Terrain extends Item {
         }while(found != -1 && found2 != -1 && !visible);
 
         if((found = isInTerrain("Tank")) != -1 && ((Tank) items[found]).isDestructor()) {
-            if (isInTerrain("Obstacle") != -1) {
+            if ( (found2 = isInTerrain("Obstacle")) != -1) {
+                if(((Obstacle) items[found2]).getBrickType().equalsIgnoreCase("Steel"))
+                    ((Tank) items[found]).setDestroyedSteel(((Tank) items[found]).getDestroyedSteel() + 1);
+                else  if(((Obstacle) items[found2]).getBrickType().equalsIgnoreCase("Brick"))
+                    ((Tank) items[found]).setDestroyedBrick(((Tank) items[found]).getDestroyedBrick() + 1);
                 removeItem("Obstacle");
             }
         }
@@ -146,8 +151,15 @@ public class Terrain extends Item {
     public void updateObstacle(int obsIndex, int bulletIndex, String type){
         ((Obstacle) items[obsIndex]).setHealth
                 (((Obstacle) items[obsIndex]).getHealth() - ((Harmful_Tool) items[bulletIndex]).getDamage());
-        if(((Obstacle) items[obsIndex]).getHealth()<=0)
+        if(((Obstacle) items[obsIndex]).getHealth()<=0) {
+            if(((Obstacle) items[obsIndex]).getBrickType().equalsIgnoreCase("Brick"))
+                tankNo = ((Harmful_Tool) items[bulletIndex]).getTank();
+            else if(((Obstacle) items[obsIndex]).getBrickType().equalsIgnoreCase("Steel"))
+                tankNo = ((Harmful_Tool) items[bulletIndex]).getTank() + 2;
             removeItem("Obstacle");
+        }
         removeItem(type);
     }
+
+
 }

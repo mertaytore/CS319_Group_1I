@@ -14,7 +14,6 @@ import java.util.TimerTask;
 public class Game {
 
     Game_Map map;
-    Highscores scores;
     private Timer gameLoop;
     private TimerTask task;
     private Random randomGenerator = new Random();
@@ -26,8 +25,7 @@ public class Game {
     public Game(Game_Screen screen){
 
         this.screen = screen;
-        map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
-        scores = new Highscores();
+        map = new Game_Map(screen, "Project/maps/mapMedium.txt" ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
@@ -83,8 +81,6 @@ public class Game {
             player1.setScore(player1.getScore() + 40);
         else
             return false;
-        scores.compareScores("man", player1.getScore());
-        scores.compareScores("doraemon", player2.getScore());
         return true;
     }
 
@@ -92,10 +88,12 @@ public class Game {
             int score = screen.getSec()*2 + screen.getMin()*120;
             Tank tank = retrieveTank(1);
             if(tank != null)
-                player1.setScore(tank.getLevel() * tank.getHealth() + score);
+                player1.setScore(tank.getLevel() * tank.getHealth() +
+                        score + tank.getDestroyedBrick()*10 + tank.getDestroyedSteel()*20);
             tank = retrieveTank(2);
             if(tank != null)
-                player2.setScore(tank.getLevel() * tank.getHealth() + score);
+                player2.setScore(tank.getLevel() * tank.getHealth() +
+                        score + tank.getDestroyedBrick()*10 + tank.getDestroyedSteel()*20);
     }
 
     public Tank retrieveTank(int playerNo){

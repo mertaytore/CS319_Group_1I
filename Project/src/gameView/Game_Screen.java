@@ -1,6 +1,7 @@
 package gameView;
 
 import Game_Controller.Input_Handler;
+import Game_Model.Highscores;
 import entityModel.Items.*;
 import gameView.Menu.Main_Menu;
 
@@ -32,15 +33,18 @@ public class Game_Screen {
     private  JLabel p2health;
     private  JLabel time;
     private Timer timer;
+    private Highscores scores;
     int delay = 1000;
 
     int min = 1; int sec;
+    int score1; int score2;
 
     public Game_Screen(Input_Handler input_handler) {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        scores = new Highscores();
         p1score = new JLabel("Player1 Score : 0");
         p2score = new JLabel("Player2 Score : 0");
         p1health = new JLabel("");
@@ -212,6 +216,8 @@ public class Game_Screen {
     public void displayScore(int score1, int score2){
         p1score.setText("Player1 Score : " + score1 + "  ");
         p2score.setText("Player2 Score : " + score2 + "  ");
+        this.score1 = score1;
+        this.score2 = score2;
     }
 
     public AffineTransformOp rotate(BufferedImage img, String rot){
@@ -236,6 +242,8 @@ public class Game_Screen {
         frame.getContentPane().remove(gamePanel);
         JButton finishB = new JButton("Finish Game");
         JPanel finish = new JPanel();
+        scores.compareScores("man", score1);
+        scores.compareScores("doraemon", score2);
         finish.add(p1score);
         finish.add(p2score);
         finish.add(finishB);

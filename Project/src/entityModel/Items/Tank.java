@@ -17,6 +17,8 @@ public class Tank extends Other_Item implements Movable {
     private int level;
     private boolean isNPC;
     String direction;
+    int destroyedBrick;
+    int destroyedSteel;
 
     public Tank( boolean isPickable, String itemType, String direction) {
         super(isPickable, itemType);
@@ -112,5 +114,21 @@ public class Tank extends Other_Item implements Movable {
     @Override
     public String getDirection() {
         return direction;
+    }
+
+    public int getDestroyedBrick() {
+        return destroyedBrick;
+    }
+
+    public void setDestroyedBrick(int destroyedBrick) {
+        this.destroyedBrick = destroyedBrick;
+    }
+
+    public int getDestroyedSteel() {
+        return destroyedSteel;
+    }
+
+    public void setDestroyedSteel(int destroyedSteel) {
+        this.destroyedSteel = destroyedSteel;
     }
 }
