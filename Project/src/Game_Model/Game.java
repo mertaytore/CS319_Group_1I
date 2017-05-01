@@ -14,6 +14,7 @@ import java.util.TimerTask;
 public class Game {
 
     Game_Map map;
+    Highscores scores;
     private Timer gameLoop;
     private TimerTask task;
     private Random randomGenerator = new Random();
@@ -26,6 +27,7 @@ public class Game {
 
         this.screen = screen;
         map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
+        scores = new Highscores();
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
@@ -41,8 +43,9 @@ public class Game {
                 updatePlayerScore();
                 screen.displayScore(player1.getScore(), player2.getScore());
                 if(isGameOver()){
-                    screen.finishGame();
                     gameLoop.cancel();
+                    screen.displayScore(player1.getScore(), player2.getScore());
+                    screen.finishGame();
                 }
             }
         };
@@ -80,11 +83,12 @@ public class Game {
             player1.setScore(player1.getScore() + 40);
         else
             return false;
+        scores.compareScores("man", player1.getScore());
+        scores.compareScores("doraemon", player2.getScore());
         return true;
     }
 
     public void updatePlayerScore(){
-        if(!isGameOver()) {
             int score = screen.getSec()*2 + screen.getMin()*120;
             Tank tank = retrieveTank(1);
             if(tank != null)
@@ -92,7 +96,6 @@ public class Game {
             tank = retrieveTank(2);
             if(tank != null)
                 player2.setScore(tank.getLevel() * tank.getHealth() + score);
-        }
     }
 
     public Tank retrieveTank(int playerNo){

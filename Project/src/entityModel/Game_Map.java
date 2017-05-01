@@ -126,24 +126,24 @@ public class Game_Map {
     public void updateItems(){
         for(int i = 0 ; i < index ; i++) {
             boolean time = gameTerrain[marked[i] / 10][marked[i] % 10].updateItem();
-            if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet") == null &&
-                    gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank") == null &&
-                    gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") == null) {
-                unmark(i);
-            }
+            unmark(i);
             if(time){
                 screen.setSec(screen.getSec() + 15);
             }
         }
         screen.displayGame(gameTerrain);
     }
-    public void unmark(int i){
-        if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") == null) {
+    public boolean unmark(int i){
+        if(gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Bullet") == null &&
+                gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Tank") == null &&
+                gameTerrain[marked[i] / 10][marked[i] % 10].retrieveItemInfo("Power Up") == null)  {
             for (int j = i; j < index - 1; j++) {
                 marked[j] = marked[j + 1];
             }
             index--;
+            return true;
         }
+        return false;
     }
     public void mark(int row, int column){
         int value = row*10 + column;
@@ -171,25 +171,25 @@ public class Game_Map {
                     gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
                     gameTerrain[marked[i] / 10][marked[i] % 10 - 1].setItem((Other_Item) item);
                     mark(marked[i] / 10,marked[i] % 10 - 1);
-                    unmark(i); i--; preIndex--;
+                    if(unmark(i)){ i--; preIndex--; }
                 } else if (item.getDirection().equalsIgnoreCase("Right") &&
                         isTerrainValid(marked[i] / 10, marked[i] % 10 + 1, item, itemType)) {
                     gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
                     gameTerrain[marked[i] / 10][marked[i] % 10 + 1].setItem((Other_Item) item);
                     mark(marked[i] / 10,marked[i] % 10 + 1);
-                    unmark(i); i--; preIndex--;
+                    if(unmark(i)){ i--; preIndex--; }
                 } else if (item.getDirection().equalsIgnoreCase("Up") &&
                         isTerrainValid(marked[i] / 10 - 1, marked[i] % 10, item, itemType)) {
                     gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
                     gameTerrain[marked[i] / 10 - 1][marked[i] % 10].setItem((Other_Item) item);
                     mark(marked[i] / 10 - 1,marked[i] % 10);
-                    unmark(i); i--; preIndex--;
+                    if(unmark(i)){ i--; preIndex--; }
                 } else if (item.getDirection().equalsIgnoreCase("Down") &&
                         isTerrainValid(marked[i] / 10 + 1, marked[i] % 10, item, itemType)) {
                     gameTerrain[marked[i]/10][marked[i]%10].removeItem(itemType);
                     gameTerrain[marked[i] / 10 + 1][marked[i] % 10].setItem((Other_Item) item);
                     mark(marked[i] / 10 + 1,marked[i] % 10);
-                    unmark(i); i--; preIndex--;
+                    if(unmark(i)){ i--; preIndex--; }
                 }else if(itemType.equalsIgnoreCase("Bullet")){
                     gameTerrain[marked[i] / 10][marked[i] % 10].removeItem(itemType);
                     unmark(i);

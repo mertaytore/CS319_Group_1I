@@ -91,9 +91,10 @@ public class Highscores {
                 int currentScore = Integer.parseInt(temp[1]);
                 if (currentScore < pScore)
                 {
-                    for (int k = 10 - 1;k > 0 && k + 1 != i; --k)
+                    for (int k = 9;k > 0 && k + 1 != i; --k)
                     {
                         allScores[k] = allScores[k-1];
+                        allScoresNames[k] = allScoresNames[k-1];
                     }
                     allScoresNames[i] = player;
                     allScores[i] = pScore;

@@ -17,7 +17,7 @@ public class Terrain extends Item {
     public Terrain(int x , int y) {
         this.xCoordinate = x;
         this.yCoordinate = y;
-        items = new Other_Item[5];
+        items = new Other_Item[10];
     }
 
     public boolean isVisible() {

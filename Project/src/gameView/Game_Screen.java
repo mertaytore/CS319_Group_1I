@@ -81,11 +81,23 @@ public class Game_Screen {
                         int width=0; int height=0;
                         String rot = "";
 
+                        if((b = (Bullet) terrains[i][j].retrieveItemInfo("Bullet")) != null ) {
+                            pathname2 = "Project/imageFiles/bullet.png";
+                            width = getWidth()/40;
+                            height = getHeight()/40;
+                            if(b.getDirection().equalsIgnoreCase("Left"))
+                                rot = "Left";
+                            else if(b.getDirection().equalsIgnoreCase("Right"))
+                                rot = "Right";
+                            else if(b.getDirection().equalsIgnoreCase("Down"))
+                                rot = "Down";
+                        }
                         if(( obs = (Obstacle) terrains[i][j].retrieveItemInfo("Obstacle")) != null ) {
                             if(obs.getBrickType().equalsIgnoreCase("Steel"))
                                 pathname = "Project/imageFiles/steel_brick.png";
                             else if(obs.getBrickType().equalsIgnoreCase("Brick"))
                                 pathname = "Project/imageFiles/ordinary_brick.png";
+                            pathname2 = "";
                         }
                         else if( (pow = (Power_Up) terrains[i][j].retrieveItemInfo("Power Up")) != null ){
                             if(pow.getPowerUpType().equalsIgnoreCase("Tank"))
@@ -100,18 +112,7 @@ public class Game_Screen {
                                 pathname = "Project/imageFiles/brick_rider.png";
                         }
                         else if(terrains[i][j] instanceof Ground){
-                            pathname = "Project/imageFiles/player_base.png";
-                        }
-                        if((b = (Bullet) terrains[i][j].retrieveItemInfo("Bullet")) != null ) {
-                            pathname2 = "Project/imageFiles/bullet.png";
-                            width = getWidth()/40;
-                            height = getHeight()/40;
-                            if(b.getDirection().equalsIgnoreCase("Left"))
-                                rot = "Left";
-                            else if(b.getDirection().equalsIgnoreCase("Right"))
-                                rot = "Right";
-                            else if(b.getDirection().equalsIgnoreCase("Down"))
-                                rot = "Down";
+                            pathname = "Project/imageFiles/blank_terrain.png";
                         }
                         if((m = (Mine) terrains[i][j].retrieveItemInfo("Mine")) != null ) {
                             if(m.isVisible()) {
