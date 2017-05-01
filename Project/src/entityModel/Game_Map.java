@@ -149,7 +149,7 @@ public class Game_Map {
         int value = row*10 + column;
         for(int i = 0; i < index; i++) {
             if (marked[i] == value)
-                return;
+                unmark(i);
         }
         marked[index] = row*10 + column;
         index++;

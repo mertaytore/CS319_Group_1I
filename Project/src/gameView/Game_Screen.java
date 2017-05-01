@@ -121,14 +121,30 @@ public class Game_Screen {
                             }
                         }
                         if((t = (Tank) terrains[i][j].retrieveItemInfo("Tank")) != null ) {
-                            if(t.getLevel() == 1)
+                            if(t.getLevel() == 1 && t.getPlayerNo() == 1)
                                 pathname = "Project/imageFiles/green_level_1.png";
-                            else if(t.getLevel() == 2)
+                            else if(t.getLevel() == 2 && t.getPlayerNo() == 1)
                                 pathname = "Project/imageFiles/green_level_2.png";
-                            else if(t.getLevel() == 3)
+                            else if(t.getLevel() == 3 && t.getPlayerNo() == 1)
                                 pathname = "Project/imageFiles/green_level_3.png";
-                            else if(t.getLevel() == 4)
+                            else if(t.getLevel() == 4 && t.getPlayerNo() == 1)
                                 pathname = "Project/imageFiles/green_level_4.png";
+                            else if(t.getLevel() == 1 && t.getPlayerNo() == 2)
+                                pathname = "Project/imageFiles/yellow_level_1.png";
+                            else if(t.getLevel() == 2 && t.getPlayerNo() == 2)
+                                pathname = "Project/imageFiles/yellow_level_2.png";
+                            else if(t.getLevel() == 3 && t.getPlayerNo() == 2)
+                                pathname = "Project/imageFiles/yellow_level_3.png";
+                            else if(t.getLevel() == 4 && t.getPlayerNo() == 2)
+                                pathname = "Project/imageFiles/yellow_level_4.png";
+                            if(t.getLevel() == 1 && t.isNPC())
+                                pathname = "Project/imageFiles/npc_level_1.png";
+                            else if(t.getLevel() == 2 && t.isNPC())
+                                pathname = "Project/imageFiles/npc_level_2.png";
+                            else if(t.getLevel() == 3 && t.isNPC())
+                                pathname = "Project/imageFiles/npc_level_3.png";
+                            else if(t.getLevel() == 4 && t.isNPC())
+                                pathname = "Project/imageFiles/npc_level_4.png";
                             pathname2 = "";
                             if(t.getDirection().equalsIgnoreCase("Left"))
                                 rot = "Left";

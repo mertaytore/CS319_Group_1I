@@ -24,8 +24,8 @@ public class Game {
     Player player2;
     public Game(Game_Screen screen){
 
-        map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
         this.screen = screen;
+        map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
@@ -87,9 +87,11 @@ public class Game {
         if(!isGameOver()) {
             int score = screen.getSec()*2 + screen.getMin()*120;
             Tank tank = retrieveTank(1);
-            player1.setScore(tank.getLevel() * tank.getHealth() + score);
+            if(tank != null)
+                player1.setScore(tank.getLevel() * tank.getHealth() + score);
             tank = retrieveTank(2);
-            player2.setScore(tank.getLevel() * tank.getHealth() + score);
+            if(tank != null)
+                player2.setScore(tank.getLevel() * tank.getHealth() + score);
         }
     }
 
@@ -102,5 +104,17 @@ public class Game {
             }
         }
         return null;
+    }
+
+    public void startAI(int playerNo){
+        Tank tank = retrieveTank(playerNo);
+        if(tank != null)
+            tank.setNPC(true);
+    }
+
+    public void finishAI(int playerNo){
+        Tank tank = retrieveTank(playerNo);
+        if(tank != null)
+            tank.setNPC(false);
     }
 }
