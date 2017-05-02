@@ -2,6 +2,7 @@ package gameView.Menu;
 
 import Game_Controller.Input_Handler;
 import Game_Model.Game;
+import Game_Model.Player;
 import gameView.Game_Screen;
 
 import javax.swing.*;
@@ -96,11 +97,14 @@ public class Game_Options extends Menu {
 
         playButton.addActionListener( new ActionListener() {
             public void actionPerformed(ActionEvent e){
-
+                Player player1 = new Player(1);
+                Player player2 = new Player(2);
+                player1.setPlayerName(p1name.getText());
+                player2.setPlayerName(p2name.getText());
                 frame.dispose();
                 Input_Handler input_handler = new Input_Handler();
-                Game_Screen game_screen = new Game_Screen(input_handler);
-                Game game = new Game(game_screen);
+                Game_Screen game_screen = new Game_Screen(input_handler, player1, player2);
+                Game game = new Game(game_screen, player1, player2);
                 input_handler.setGame(game);
             }
         });

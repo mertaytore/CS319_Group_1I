@@ -5,7 +5,7 @@ package Game_Model;
  */
 public class Player {
 
-
+    String playerName;
     int playerNo;
     int score;
 
@@ -19,6 +19,14 @@ public class Player {
 
     public void setPlayerNo(int playerNo) {
         this.playerNo = playerNo;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public int getScore() {

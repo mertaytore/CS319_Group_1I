@@ -2,6 +2,7 @@ package gameView;
 
 import Game_Controller.Input_Handler;
 import Game_Model.Highscores;
+import Game_Model.Player;
 import entityModel.Items.*;
 import gameView.Menu.Main_Menu;
 
@@ -39,7 +40,7 @@ public class Game_Screen {
     int min = 1; int sec;
     int score1; int score2;
 
-    public Game_Screen(Input_Handler input_handler) {
+    public Game_Screen(Input_Handler input_handler, Player player1, Player player2) {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +62,7 @@ public class Game_Screen {
                     sec--;
                 if(sec == 0 && min == 0) {
                     timer.stop();
-                    finishGame();
+                    finishGame( player1, player2);
                 }
                 time.setText("Remaining Time : " + min + " : " + sec);
             }
@@ -239,13 +240,13 @@ public class Game_Screen {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         return  op;
     }
-    public void finishGame(){
+    public void finishGame( Player player1, Player player2){
         timer.stop();
         frame.getContentPane().remove(gamePanel);
         JButton finishB = new JButton("Finish Game");
         JPanel finish = new JPanel();
-        scores.compareScores("man", score1);
-        scores.compareScores("doraemon", score2);
+        scores.compareScores(player1.getPlayerName(), score1);
+        scores.compareScores(player2.getPlayerName(), score2);
         finish.add(p1score);
         finish.add(p2score);
         finish.add(finishB);

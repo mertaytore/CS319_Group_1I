@@ -22,15 +22,15 @@ public class Game {
     String[] powerUp;
     Player player1;
     Player player2;
-    public Game(Game_Screen screen){
+    public Game(Game_Screen screen, Player player1, Player player2){
 
         this.screen = screen;
         map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
-        player1 = new Player(1);
-        player2 = new Player(2);
+        this.player1 = player1;
+        this.player2 = player2;
         task = new TimerTask() {
             @Override
             public void run() {
@@ -43,7 +43,7 @@ public class Game {
                 if(isGameOver()){
                     gameLoop.cancel();
                     screen.displayScore(player1.getScore(), player2.getScore());
-                    screen.finishGame();
+                    screen.finishGame(player1, player2);
                 }
             }
         };
