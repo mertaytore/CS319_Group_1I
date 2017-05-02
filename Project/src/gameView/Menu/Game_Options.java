@@ -8,8 +8,7 @@ import gameView.Game_Screen;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Created by mertaytore on 1/5/17.
@@ -30,6 +29,8 @@ public class Game_Options extends Menu {
     private JTextField p1name;
     private JTextField p2name;
 
+    String mapPath = "";
+
     private BasicOptionPaneUI.ButtonActionListener mainListener;
 
     public Game_Options(JFrame frame) {
@@ -48,17 +49,52 @@ public class Game_Options extends Menu {
         p1name = new JTextField("ucankedineydi");
         p2name = new JTextField("adiniunuttumyav");
 
-        easyMap = new JButton("Easy Map");
-        mediumMap = new JButton("Medium Map");
-        hardMap = new JButton("Hard Map");
-        randomMap = new JButton("Random Map");
         playButton = new JButton("PLAY!");
         returnB = new JButton("Back to Main Menu");
 
-        easyMap.setPreferredSize(new Dimension(200, 40));
-        mediumMap.setPreferredSize(new Dimension(200, 40));
-        hardMap.setPreferredSize(new Dimension(200, 40));
-        randomMap.setPreferredSize(new Dimension(200, 40));
+        final JRadioButton easyMap = new JRadioButton("Easy Map");
+        final JRadioButton mediumMap = new JRadioButton("Medium Map");
+        final JRadioButton hardMap = new JRadioButton("Hard Map");
+        final JRadioButton randomMap = new JRadioButton("Random Map");
+
+        easyMap.setForeground(Color.white);
+        mediumMap.setForeground(Color.white);
+        hardMap.setForeground(Color.white);
+        randomMap.setForeground(Color.white);
+
+        easyMap.setMnemonic(KeyEvent.VK_C);
+        mediumMap.setMnemonic(KeyEvent.VK_M);
+        hardMap.setMnemonic(KeyEvent.VK_P);
+        randomMap.setMnemonic(KeyEvent.VK_P);
+
+        easyMap.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                mapPath = "Project/maps/mapEasy.txt";
+            }
+        });
+        mediumMap.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                mapPath = "Project/maps/mapMedium.txt";
+            }
+        });
+        hardMap.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                mapPath = "Project/maps/mapHard.txt";
+            }
+        });
+        randomMap.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                mapPath = "Project/maps/mapHard.txt";
+            }
+        });
+
+        ButtonGroup group = new ButtonGroup();
+
+        group.add(easyMap);
+        group.add(mediumMap);
+        group.add(hardMap);
+        group.add(randomMap);
+
         playButton.setPreferredSize(new Dimension(200, 40));
 
 
@@ -71,7 +107,6 @@ public class Game_Options extends Menu {
         };
 
         buttonPanel.setPreferredSize(new Dimension(500,500));
-
 
         buttonPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -104,7 +139,7 @@ public class Game_Options extends Menu {
                 frame.dispose();
                 Input_Handler input_handler = new Input_Handler();
                 Game_Screen game_screen = new Game_Screen(input_handler, player1, player2);
-                Game game = new Game(game_screen, player1, player2);
+                Game game = new Game(game_screen, player1, player2, mapPath);
                 input_handler.setGame(game);
             }
         });

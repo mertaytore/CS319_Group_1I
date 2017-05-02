@@ -22,10 +22,10 @@ public class Game {
     String[] powerUp;
     Player player1;
     Player player2;
-    public Game(Game_Screen screen, Player player1, Player player2){
+    public Game(Game_Screen screen, Player player1, Player player2, String mapPath){
 
         this.screen = screen;
-        map = new Game_Map(screen, "Project/maps/mapEasy.txt" ,1);
+        map = new Game_Map(screen, mapPath ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
