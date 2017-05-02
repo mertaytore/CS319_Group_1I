@@ -7,4 +7,4 @@ L 75
 Atiba 74
 B 70
 Mirac 37
- 30
+n 30

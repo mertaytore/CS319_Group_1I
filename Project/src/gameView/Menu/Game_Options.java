@@ -29,7 +29,7 @@ public class Game_Options extends Menu {
     private JTextField p1name;
     private JTextField p2name;
 
-    String mapPath = "";
+    String mapPath = "Project/maps/mapEasy.txt";
 
     private BasicOptionPaneUI.ButtonActionListener mainListener;
 
@@ -125,6 +125,7 @@ public class Game_Options extends Menu {
         buttonPanel.add(p1name, gbc);
         buttonPanel.add(player2, gbc);
         buttonPanel.add(p2name, gbc);
+        buttonPanel.add(returnB);
 
         frame.getContentPane().add(buttonPanel);
         frame.pack();
