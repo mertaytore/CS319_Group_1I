@@ -1,14 +1,12 @@
 package gameView;
 
 import Game_Controller.Input_Handler;
-import Game_Model.Highscores;
 import Game_Model.Player;
 import entityModel.Items.*;
 import gameView.Menu.Main_Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,8 +44,8 @@ public class Game_Screen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         scores = new Highscores();
-        p1score = new JLabel("Player1 Score : 0");
-        p2score = new JLabel("Player2 Score : 0");
+        p1score = new JLabel("");
+        p2score = new JLabel("");
         p1health = new JLabel("");
         p2health = new JLabel("");
         time = new JLabel("Remaining Time : " + min + " : " + sec);
@@ -214,10 +212,10 @@ public class Game_Screen {
         gamePanel.repaint();
     }
 
-    public void displayScore(int score1, int score2){
+    public void displayScore(int score1, int score2, String playerName1, String playerName2){
         if(min !=0 || sec != 0) {
-            p1score.setText("Player1 Score : " + score1 + "  ");
-            p2score.setText("Player2 Score : " + score2 + "  ");
+            p1score.setText(playerName1 + " Score : " + score1 + "  ");
+            p2score.setText(playerName2 + " Score : " + score2 + "  ");
             this.score1 = score1;
             this.score2 = score2;
         }

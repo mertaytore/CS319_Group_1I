@@ -1,15 +1,12 @@
 package gameView.Menu;
 
-import Game_Model.Highscores;
-import gameView.Game_Screen;
+import gameView.Highscores;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
 
 /**
  * Created by mertaytore on 24/4/17.

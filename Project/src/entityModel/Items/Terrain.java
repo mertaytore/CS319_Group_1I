@@ -101,7 +101,7 @@ public class Terrain extends Item {
             }
         }while(found != -1 && found2 != -1 && !visible);
 
-        if((found = isInTerrain("Tank")) != -1 && ((Tank) items[found]).isDestructor()) {
+        if((found = isInTerrain("Tank")) != -1) {
             if ( (found2 = isInTerrain("Obstacle")) != -1) {
                 if(((Obstacle) items[found2]).getBrickType().equalsIgnoreCase("Steel"))
                     ((Tank) items[found]).setDestroyedSteel(((Tank) items[found]).getDestroyedSteel() + 1);

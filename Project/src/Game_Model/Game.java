@@ -22,6 +22,9 @@ public class Game {
     String[] powerUp;
     Player player1;
     Player player2;
+    NPC npc1;
+    NPC npc2;
+
     public Game(Game_Screen screen, Player player1, Player player2, String mapPath){
 
         this.screen = screen;
@@ -38,11 +41,14 @@ public class Game {
                 map.move(0);
                 count ++;
                 createPowerUp();
+                updateNPC();
                 updatePlayerScore();
-                screen.displayScore(player1.getScore(), player2.getScore());
+                screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
+                if(screen.getMin() == 0 && screen.getSec() == 0)
+                    gameLoop.cancel();
                 if(isGameOver()){
                     gameLoop.cancel();
-                    screen.displayScore(player1.getScore(), player2.getScore());
+                    screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
                     screen.finishGame(player1, player2);
                 }
             }
@@ -111,13 +117,40 @@ public class Game {
 
     public void startAI(int playerNo){
         Tank tank = retrieveTank(playerNo);
-        if(tank != null)
+        if(tank != null) {
             tank.setNPC(true);
+            if(tank.getPlayerNo() == 1)
+                npc1 = new NPC(playerNo, this, map);
+            if(tank.getPlayerNo() == 2)
+                npc2 = new NPC(playerNo, this, map);
+        }
     }
 
     public void finishAI(int playerNo){
         Tank tank = retrieveTank(playerNo);
-        if(tank != null)
+        if(tank != null) {
             tank.setNPC(false);
+            if(playerNo == 1)
+                npc1 = null;
+            if(playerNo == 2)
+                npc2 = null;
+        }
+    }
+
+    public void updateNPC(){
+
+        String input;
+        if(npc1 != null){
+            map.updateItems();
+            input = npc1.handleNPC();
+            if(input != "")
+                updatePlayerState(1, input);
+        }
+        if(npc2 != null){
+            map.updateItems();
+            input = npc2.handleNPC();
+            if(input != "")
+                updatePlayerState(2, input);
+        }
     }
 }
