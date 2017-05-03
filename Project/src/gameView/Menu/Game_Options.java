@@ -46,8 +46,8 @@ public class Game_Options extends Menu {
         player2 = new JLabel("Player2 name:");
         player2.setForeground(Color.white);
 
-        p1name = new JTextField("ucankedineydi");
-        p2name = new JTextField("adiniunuttumyav");
+        p1name = new JTextField("NPC1");
+        p2name = new JTextField("NPC2");
 
         playButton = new JButton("PLAY!");
         returnB = new JButton("Back to Main Menu");
