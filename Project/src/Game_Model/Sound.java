@@ -55,14 +55,9 @@ public class Sound implements LineListener{
     public void update(LineEvent event) {
         LineEvent.Type type = event.getType();
 
-        if (type == LineEvent.Type.START) {
-            System.out.println("Playback started.");
+        if (type == LineEvent.Type.START)
             playCompleted = false;
-
-        } else if (type == LineEvent.Type.STOP) {
+        else if (type == LineEvent.Type.STOP)
             playCompleted = true;
-            System.out.println("Playback completed.");
-        }
-
     }
 }
