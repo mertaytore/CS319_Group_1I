@@ -84,7 +84,7 @@ public class Game_Options extends Menu {
         });
         randomMap.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
-                mapPath = "Project/maps/mapHard.txt";
+                mapPath = "Project/maps/mapRandom.txt";
             }
         });
 

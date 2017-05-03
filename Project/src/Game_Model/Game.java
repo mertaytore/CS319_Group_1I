@@ -17,6 +17,7 @@ public class Game {
     private Timer gameLoop;
     private TimerTask task;
     private Random randomGenerator = new Random();
+    MapGenerator generator;
     Game_Screen screen;
     int count;
     String[] powerUp;
@@ -28,6 +29,8 @@ public class Game {
     public Game(Game_Screen screen, Player player1, Player player2, String mapPath){
 
         this.screen = screen;
+        if(mapPath.equalsIgnoreCase("Project/maps/mapRandom.txt"))
+            generator = new MapGenerator();
         map = new Game_Map(screen, mapPath ,1);
         gameLoop = new Timer();
         powerUp = new String[5];
