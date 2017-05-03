@@ -29,13 +29,7 @@ public class ItemFactory {
             }
             else if(itemType.equalsIgnoreCase("OBSTACLE")) {
 
-                boolean isBreakable = false;
-                if(addType.equalsIgnoreCase("STEEL"))
-                    isBreakable = false;
-                else if (addType.equalsIgnoreCase("BRICK"))
-                    isBreakable = true;
-
-                return new Obstacle(false, "Obstacle", isBreakable, addType);
+                return new Obstacle(false, "Obstacle", addType);
             }
             return null;
         }

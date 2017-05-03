@@ -32,7 +32,6 @@ public class Harmful_Tool extends Other_Item {
         isVisible = visible;
     }
 
-
     public int getTank() {
         return tank;
     }

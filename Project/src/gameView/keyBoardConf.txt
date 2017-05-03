@@ -1,3 +1,7 @@
+LeftArrow 37
+RightArrow 39
+UpArrow 38
+DownArrow 40
 A 65
 B 66
 C 67

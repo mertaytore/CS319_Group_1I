@@ -3,6 +3,7 @@ package Game_Model;
 import entityModel.Game_Map;
 import entityModel.Items.Tank;
 import gameView.Game_Screen;
+import gameView.Menu.Settings_Menu;
 
 import java.util.Random;
 import java.util.Timer;
@@ -25,13 +26,22 @@ public class Game {
     Player player2;
     NPC npc1;
     NPC npc2;
+    Sound sounds;
+    boolean terminated;
+    boolean played1;
+    boolean played2;
 
     public Game(Game_Screen screen, Player player1, Player player2, String mapPath){
 
         this.screen = screen;
-        if(mapPath.equalsIgnoreCase("Project/maps/mapRandom.txt"))
+        sounds = new Sound();
+        if(mapPath.equalsIgnoreCase("Project/maps/mapRandom.txt")) {
             generator = new MapGenerator();
-        map = new Game_Map(screen, mapPath ,1);
+            sounds.playSound("Project/soundFiles/oz6.wav");
+        }
+        else
+            sounds.playSound("Project/soundFiles/aaeve.wav");
+        map = new Game_Map(screen, mapPath);
         gameLoop = new Timer();
         powerUp = new String[5];
         powerUp[0] = "Time"; powerUp[1] = "Tank"; powerUp[2] = "Bullet"; powerUp[3] = "Destructor"; powerUp[4] = "Mine";
@@ -47,10 +57,17 @@ public class Game {
                 updateNPC();
                 updatePlayerScore();
                 screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
-                if(screen.getMin() == 0 && screen.getSec() == 0)
+                if(screen.getMin() == 0 && screen.getSec() == 0) {
+                    sounds.playSound("Project/soundFiles/boring.wav");
                     gameLoop.cancel();
+                    terminated = true;
+                }
+                if(screen.getMin() == 0 && screen.getSec() == 15)
+                    sounds.playSound("Project/soundFiles/time.wav");
                 if(isGameOver()){
+                    sounds.playSound("Project/soundFiles/gameovr.wav");
                     gameLoop.cancel();
+                    terminated = true;
                     screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
                     screen.finishGame(player1, player2);
                 }
@@ -97,14 +114,35 @@ public class Game {
 
     public void updatePlayerScore(){
             int score = screen.getSec()*2 + screen.getMin()*120;
+            int preScore1 = player1.getScore(); int preScore2 = player2.getScore();
             Tank tank = retrieveTank(1);
-            if(tank != null)
+            if(tank != null) {
                 player1.setScore(tank.getLevel() * tank.getHealth() +
-                        score + tank.getDestroyedBrick()*10 + tank.getDestroyedSteel()*20);
+                        score + tank.getDestroyedBrick() * 10 + tank.getDestroyedSteel() * 20);
+                if(tank.getHealth() > 14 && !played1) {
+                    sounds.playSound("Project/soundFiles/forceisstrong.wav");
+                    played1 = true;
+                }
+            }
             tank = retrieveTank(2);
-            if(tank != null)
+            if(tank != null) {
                 player2.setScore(tank.getLevel() * tank.getHealth() +
-                        score + tank.getDestroyedBrick()*10 + tank.getDestroyedSteel()*20);
+                        score + tank.getDestroyedBrick() * 10 + tank.getDestroyedSteel() * 20);
+                if(tank.getHealth() > 14 && !played2) {
+                    sounds.playSound("Project/soundFiles/invincible.wav");
+                    played2 = true;
+                }
+            }
+            if(player1.getScore() <= 50 && preScore1 > 50 ||  player2.getScore() <= 50 && preScore2 > 50)
+                sounds.playSound("Project/soundFiles/concentr-3.wav");
+            else if(player1.getScore() >= 200 && preScore1 < 200 )
+                sounds.playSound("Project/soundFiles/to_inf.wav");
+            else if(player1.getScore() >= 400 && preScore1 < 400)
+                sounds.playSound("Project/soundFiles/you_win.wav");
+            if( player2.getScore() >= 200 && preScore2 < 200)
+                sounds.playSound("Project/soundFiles/joking.wav");
+            else if(player2.getScore() >= 400 && preScore2 < 400)
+                sounds.playSound("Project/soundFiles/gotten.wav");
     }
 
     public Tank retrieveTank(int playerNo){
@@ -119,6 +157,7 @@ public class Game {
     }
 
     public void startAI(int playerNo){
+        sounds.playSound("Project/soundFiles/hmrcando.wav");
         Tank tank = retrieveTank(playerNo);
         if(tank != null) {
             tank.setNPC(true);
@@ -130,6 +169,7 @@ public class Game {
     }
 
     public void finishAI(int playerNo){
+        sounds.playSound("Project/soundFiles/error.wav");
         Tank tank = retrieveTank(playerNo);
         if(tank != null) {
             tank.setNPC(false);
@@ -155,5 +195,9 @@ public class Game {
             if(input != "")
                 updatePlayerState(2, input);
         }
+    }
+
+    public boolean isTerminated(){
+        return terminated;
     }
 }

@@ -6,13 +6,11 @@ package entityModel.Items;
 public class Obstacle extends Other_Item {
 
     private int health;
-    private boolean isBreakable;
     private String brickType;
 
-    public Obstacle(boolean isPickable, String itemType, boolean isBreakable, String brickType) {
+    public Obstacle(boolean isPickable, String itemType, String brickType) {
         super(isPickable, itemType);
         this.brickType =brickType;
-        this.isBreakable = isBreakable;
         if (brickType.equalsIgnoreCase("Steel"))
             health = 5;
         else
@@ -25,14 +23,6 @@ public class Obstacle extends Other_Item {
 
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public boolean isBreakable() {
-        return isBreakable;
-    }
-
-    public void setBreakable(boolean breakable) {
-        isBreakable = breakable;
     }
 
     public String getBrickType() {

@@ -7,6 +7,8 @@ import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
@@ -24,16 +26,18 @@ public class Settings_Menu extends Menu {
     private JPanel settingsPanel;
     private File settingsFile;
     private HashMap playerSettingsMap;
-    FileReader fileReader;
-    BufferedReader br = null;
+    private FileReader fileReader;
+    private BufferedReader br = null;
     private BasicOptionPaneUI.ButtonActionListener settingsListener;
-    JComboBox[] combos;
-    JLabel[] labelsForCombo;
-    JLabel error;
-    JButton playGameButton;
-    String[] names = {"Player 1 Left Move : ", "Player 1 Up Move : ", "Player 1 Right Move : ", "Player 1 Down Move : ",
+    private JComboBox[] combos;
+    private JLabel[] labelsForCombo;
+    private JLabel error;
+    private JButton playGameButton;
+    private String[] names = {"Player 1 Left Move : ", "Player 1 Up Move : ", "Player 1 Right Move : ", "Player 1 Down Move : ",
             "Player 1 Fire Move : ","Player 1 Land Move : ","Player 2 Left Move : ","Player 2 Up Move : ",
             "Player 2 Right Move : ","Player 2 Down Move : ","Player 2 Fire Move : ","Player 2 Land Move : "};
+    private JToggleButton sound;
+    private static boolean selected;
 
     public Settings_Menu(JFrame frame) {
         // inherited frame and background image from Menu
@@ -129,11 +133,24 @@ public class Settings_Menu extends Menu {
 
         change = new JButton("Change Settings");
         returnB = new JButton("Back to Main Menu");
+        sound = new JToggleButton("Enable Sound");
+        sound.setSelected(selected);
+        sound.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent ev) {
+                if(ev.getStateChange()==ItemEvent.SELECTED){
+                    selected = true;
+                } else if(ev.getStateChange()==ItemEvent.DESELECTED){
+                    selected = false;
+                }
+            }
+        });
 
         settingsPanel.add(change);
         settingsPanel.add(returnB);
+        settingsPanel.add(sound);
         settingsPanel.add(playGameButton);
         settingsPanel.add(error);
+
 
         settingsPanel.setPreferredSize(new Dimension(500,500));
 
@@ -183,5 +200,9 @@ public class Settings_Menu extends Menu {
                 displayGameOptions();
             }
         });
+    }
+
+    public static boolean isSelected(){
+        return selected;
     }
 }

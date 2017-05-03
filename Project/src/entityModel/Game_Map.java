@@ -14,7 +14,6 @@ import java.io.IOException;
 public class Game_Map {
 
     private String mapFile;
-    private int difficulty;
     private Terrain[][] gameTerrain;
     private int rowIndex;
     private int column;
@@ -25,9 +24,8 @@ public class Game_Map {
     BufferedReader br = null;
     FileReader fr = null;
 
-    public Game_Map(Game_Screen screen, String mapFile, int difficulty) {
+    public Game_Map(Game_Screen screen, String mapFile) {
         this.mapFile = mapFile;
-        this.difficulty = difficulty;
         gameTerrain = new Terrain[10][10];
         marked = new int[25];
         this.screen = screen;

@@ -27,6 +27,10 @@ public class MapGenerator {
         row2 = randomGenerator.nextInt(10);
         column1 = randomGenerator.nextInt(10);
         column2 = randomGenerator.nextInt(10);
+        while(row1 == row2 && column1 == column2) {
+            row1 = randomGenerator.nextInt(10);
+            column1 = randomGenerator.nextInt(10);
+        }
         generateMap();
     }
 

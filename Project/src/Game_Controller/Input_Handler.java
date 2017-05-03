@@ -37,6 +37,8 @@ public class Input_Handler {
         task = new TimerTask() {
             @Override
             public void run() {
+             if (game.isTerminated())
+                 time.cancel();
              if(isCounting1)
                 countPlayer1++;
              if(isCounting2)
