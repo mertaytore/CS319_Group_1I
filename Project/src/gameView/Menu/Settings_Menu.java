@@ -30,6 +30,7 @@ public class Settings_Menu extends Menu {
     JComboBox[] combos;
     JLabel[] labelsForCombo;
     JLabel error;
+    JButton playGameButton;
     String[] names = {"Player 1 Left Move : ", "Player 1 Up Move : ", "Player 1 Right Move : ", "Player 1 Down Move : ",
             "Player 1 Fire Move : ","Player 1 Land Move : ","Player 2 Left Move : ","Player 2 Up Move : ",
             "Player 2 Right Move : ","Player 2 Down Move : ","Player 2 Fire Move : ","Player 2 Land Move : "};
@@ -83,6 +84,7 @@ public class Settings_Menu extends Menu {
         combos = new JComboBox[12];
         labelsForCombo = new JLabel[12];
         error.setForeground(Color.cyan);
+        playGameButton = new JButton("Play");
 
         String[] array = null;
         try {
@@ -130,6 +132,7 @@ public class Settings_Menu extends Menu {
 
         settingsPanel.add(change);
         settingsPanel.add(returnB);
+        settingsPanel.add(playGameButton);
         settingsPanel.add(error);
 
         settingsPanel.setPreferredSize(new Dimension(500,500));
@@ -163,8 +166,6 @@ public class Settings_Menu extends Menu {
                         System.out.println("there is a problem generating settings");
                     }
                 }
-                frame.getContentPane().remove(settingsPanel);
-                displayMainMenu();
             }
         });
 
@@ -172,6 +173,14 @@ public class Settings_Menu extends Menu {
             public void actionPerformed(ActionEvent e){
                 frame.getContentPane().remove(settingsPanel);
                displayMainMenu();
+            }
+        });
+
+        playGameButton.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+
+                frame.getContentPane().remove(settingsPanel);
+                displayGameOptions();
             }
         });
     }

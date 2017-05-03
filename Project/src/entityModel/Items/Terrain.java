@@ -8,16 +8,14 @@ import entityModel.ItemFactory;
 public class Terrain extends Item {
 
     public static int tankNo;
-    private int xCoordinate;
-    private int yCoordinate;
     private boolean isVisible;
     Other_Item[] items;
     int index;
     private ItemFactory factory = new ItemFactory();
 
     public Terrain(int x , int y) {
-        this.xCoordinate = x;
-        this.yCoordinate = y;
+
+        super(x, y);
         items = new Other_Item[10];
     }
 
@@ -27,22 +25,6 @@ public class Terrain extends Item {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
-    }
-
-    public void setxCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
-    }
-
-    public void setyCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public int getxCoordinate() {
-        return xCoordinate;
     }
 
     public void addItem( String itemType, String addType, int damage){
