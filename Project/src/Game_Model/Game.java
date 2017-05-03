@@ -3,7 +3,6 @@ package Game_Model;
 import entityModel.Game_Map;
 import entityModel.Items.Tank;
 import gameView.Game_Screen;
-import gameView.Menu.Settings_Menu;
 
 import java.util.Random;
 import java.util.Timer;

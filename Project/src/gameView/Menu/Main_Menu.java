@@ -1,17 +1,9 @@
 package gameView.Menu;
 
-import Game_Controller.Input_Handler;
-import Game_Model.Game;
-import gameView.Game_Screen;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by mertaytore on 24/4/17.

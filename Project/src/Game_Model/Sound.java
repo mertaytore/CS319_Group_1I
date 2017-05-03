@@ -1,7 +1,6 @@
 package Game_Model;
 
 import gameView.Menu.Settings_Menu;
-import sun.applet.Main;
 
 import javax.sound.sampled.*;
 import java.io.File;

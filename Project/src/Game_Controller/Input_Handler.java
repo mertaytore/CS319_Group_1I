@@ -2,11 +2,8 @@ package Game_Controller;
 
 import Game_Model.Game;
 
-import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static java.awt.event.KeyEvent.*;
 
 /**
  * Created by Apple on 29/04/2017.

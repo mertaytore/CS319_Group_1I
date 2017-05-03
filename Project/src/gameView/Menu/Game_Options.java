@@ -15,10 +15,6 @@ import java.awt.event.*;
  */
 public class Game_Options extends Menu {
 
-    private JButton easyMap;
-    private JButton mediumMap;
-    private JButton hardMap;
-    private JButton randomMap;
     private JButton playButton;
     private JButton returnB;
     private JPanel buttonPanel;

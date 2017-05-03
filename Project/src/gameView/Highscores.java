@@ -2,8 +2,6 @@ package gameView;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.net.URL;
 
 /**
  * Created by mertaytore on 30/4/17.
@@ -11,13 +9,9 @@ import java.net.URL;
 public class Highscores {
 
     // variables
-    private static Highscores score_manager = new Highscores();
     private File scoreFile;
     private String[] allScoresNames;
     private int[]    allScores;
-    private int highScore;
-    private int scoreList;
-    private int name;
     private HashMap playerScoreMap;
     FileReader fileReader;
     BufferedReader br = null;
@@ -26,7 +20,6 @@ public class Highscores {
     public Highscores(){
         playerScoreMap = new HashMap();
         scoreFile = new File("Project/src/gameView/scores.txt");
-        String readerTemp;
         String[] tempSplit;
 
         allScoresNames = new String[10];

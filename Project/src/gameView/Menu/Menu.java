@@ -1,7 +1,5 @@
 package gameView.Menu;
 
-import gameView.Game_Screen;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
