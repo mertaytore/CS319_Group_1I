@@ -42,6 +42,7 @@ public class Game_Screen {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setMinimumSize( new Dimension(500,500));
 
         scores = new Highscores();
         p1score = new JLabel("");

@@ -1,10 +1,10 @@
+NPC1 254
+NPC2 168
 NPC1 159
+NPC1 155
 Yusuf 124
 Aytore 120
 Orcun 117
 NPC2 114
+NPC2 102
 UcanKediDoraemon 90
-BananaJoe 76
-L 75
-Atiba 74
-B 70

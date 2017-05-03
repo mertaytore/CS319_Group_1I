@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static java.awt.event.KeyEvent.VK_ENTER;
+import static java.awt.event.KeyEvent.*;
 
 /**
  * Created by Apple on 29/04/2017.
@@ -23,8 +23,13 @@ public class Input_Handler {
     private TimerTask task;
     private boolean isCounting1;
     private boolean isCounting2;
+    private String[] settings;
+    private Screen_Handler handler;
 
     public Input_Handler(){
+
+        handler = new Screen_Handler();
+        settings = handler.readSettings();
         threshold = 10;
         time = new Timer();
         isCounting2 = true;
@@ -48,27 +53,27 @@ public class Input_Handler {
     public void checkInput(int key){
 
         input="";
-        if(key == 37){
+        if(key == Integer.parseInt(settings[0])){
             playerNo = 1;
             input = "left";
         }
-        if(key == 38){
+        if(key == Integer.parseInt(settings[1])){
             playerNo = 1;
             input = "Up";
         }
-        if(key == 39){
+        if(key == Integer.parseInt(settings[2])){
             playerNo = 1;
             input = "Right";
         }
-        if(key == 40){
+        if(key == Integer.parseInt(settings[3])){
             playerNo = 1;
             input = "Down";
         }
-        if(key == VK_ENTER ){
+        if(key == Integer.parseInt(settings[4]) ){
             playerNo = 1;
             input = "Fire";
         }
-        if(key == 76){
+        if(key == Integer.parseInt(settings[5])){
             playerNo = 1;
             input = "Land";
         }
@@ -79,27 +84,27 @@ public class Input_Handler {
             sendInput();
         }
         input = "";
-        if(key == 65){
+        if(key == Integer.parseInt(settings[6])){
             playerNo = 2;
             input = "left";
         }
-        if(key == 87){
+        if(key == Integer.parseInt(settings[7])){
             playerNo = 2;
             input = "Up";
         }
-        if(key == 68){
+        if(key == Integer.parseInt(settings[8])){
             playerNo = 2;
             input = "Right";
         }
-        if(key == 83){
+        if(key == Integer.parseInt(settings[9])){
             playerNo = 2;
             input = "Down";
         }
-        if(key == 32 ){
+        if(key == Integer.parseInt(settings[10])){
             playerNo = 2;
             input = "Fire";
         }
-        if(key == 67){
+        if(key == Integer.parseInt(settings[11])){
             playerNo = 2;
             input = "Land";
         }
