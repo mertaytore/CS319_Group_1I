@@ -33,6 +33,11 @@ public class Sound implements LineListener{
 
                 audioClip.open(audioStream);
 
+                FloatControl gainControl =
+                        (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+
+                gainControl.setValue(Settings_Menu.getVol());
+
                 audioClip.start();
 
             } catch (UnsupportedAudioFileException ex) {

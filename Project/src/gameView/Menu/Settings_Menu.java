@@ -2,6 +2,8 @@ package gameView.Menu;
 
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,6 +38,9 @@ public class Settings_Menu extends Menu {
             "Yellow Tank Right Move : ","Yellow Tank Down Move : ","Yellow Tank Fire : ","Yellow Tank Land : "};
     private JToggleButton sound;
     private static boolean selected;
+    private static float vol = -2;
+    private final int vol_min = 0;
+    private final int vol_max = 16;
 
     public Settings_Menu(JFrame frame) {
         // inherited frame and background image from Menu
@@ -87,6 +92,23 @@ public class Settings_Menu extends Menu {
         labelsForCombo = new JLabel[12];
         error.setForeground(Color.cyan);
         playGameButton = new JButton("Play");
+
+
+        JSlider volume = new JSlider(JSlider.HORIZONTAL,
+                vol_min, vol_max, (int) vol + 10);
+
+        volume.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                vol = volume.getValue() - 10;
+            }
+        });
+
+        volume.setMajorTickSpacing(4);
+        volume.setMinorTickSpacing(1);
+        volume.setPaintTicks(true);
+        volume.setPaintLabels(true);
+        volume.setForeground(Color.white);
 
         String[] array = null;
         try {
@@ -149,6 +171,7 @@ public class Settings_Menu extends Menu {
         settingsPanel.add(change);
         settingsPanel.add(returnB);
         settingsPanel.add(sound);
+        settingsPanel.add(volume);
         settingsPanel.add(playGameButton);
         settingsPanel.add(error);
 
@@ -209,5 +232,13 @@ public class Settings_Menu extends Menu {
 
     public static void setSelected(boolean select){
          selected = select;
+    }
+
+    public static float getVol() {
+        return vol;
+    }
+
+    public static void setVol(float vol) {
+        Settings_Menu.vol = vol;
     }
 }

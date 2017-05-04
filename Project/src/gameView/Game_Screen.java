@@ -8,6 +8,8 @@ import gameView.Menu.Settings_Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -40,6 +42,8 @@ public class Game_Screen {
 
     int min = 1; int sec;
     int score1; int score2;
+    private final int vol_min = 0;
+    private final int vol_max = 16;
 
     public Game_Screen(Input_Handler input_handler, Player player1, Player player2) {
 
@@ -334,10 +338,28 @@ public class Game_Screen {
             }
         });
 
+        JSlider volume = new JSlider(JSlider.HORIZONTAL,
+                vol_min, vol_max, (int) Settings_Menu.getVol() + 10);
+
+        volume.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                Settings_Menu.setVol(volume.getValue() - 10);
+            }
+        });
+
+        volume.setMajorTickSpacing(4);
+        volume.setMinorTickSpacing(1);
+        volume.setPaintTicks(true);
+        volume.setPaintLabels(true);
+        volume.setForeground(Color.white);
+
+
         resumeGame.add(scr1);
         resumeGame.add(scr2);
         resumeGame.add(remainTime);
         resumeGame.add(sound);
+        resumeGame.add(volume);
         resumeGame.add(resume);
         resumeGame.add(quit);
 
