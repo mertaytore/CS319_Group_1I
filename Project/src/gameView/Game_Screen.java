@@ -287,6 +287,9 @@ public class Game_Screen {
         timer.stop();
         JButton resume = new JButton("Resume");
         JButton quit = new JButton("Quit");
+        JLabel scr1 = new JLabel(p1score.getText());
+        JLabel scr2 = new JLabel(p2score.getText());
+        JLabel remainTime = new JLabel(time.getText());
         JPanel resumeGame = new JPanel();
 
         resumeGame.setBackground(Color.white);
@@ -294,8 +297,10 @@ public class Game_Screen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 timer.restart();
-                frame.getContentPane().remove(resumeGame);
                 frame.getContentPane().add(gamePanel);
+                frame.getContentPane().remove(resumeGame);
+                frame.pack();
+                frame.setVisible(true);
                 gamePanel.setFocusable(true);
                 gamePanel.requestFocusInWindow();
                 input_handler.setPaused(false);
@@ -329,6 +334,9 @@ public class Game_Screen {
             }
         });
 
+        resumeGame.add(scr1);
+        resumeGame.add(scr2);
+        resumeGame.add(remainTime);
         resumeGame.add(sound);
         resumeGame.add(resume);
         resumeGame.add(quit);
