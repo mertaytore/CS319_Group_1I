@@ -262,6 +262,7 @@ public class Game_Screen {
 
     public void finishGame( Player player1, Player player2){
         timer.stop();
+        setSec(0);
         frame.getContentPane().remove(gamePanel);
         JButton finishB = new JButton("Finish Game");
         JPanel finish = new JPanel();
@@ -275,6 +276,7 @@ public class Game_Screen {
         finishB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setSec(0);
                 frame.dispose();
                 Main_Menu main_menu = new Main_Menu(null);
             }

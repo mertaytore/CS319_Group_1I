@@ -131,7 +131,11 @@ public class Terrain extends Item {
         removeItem(type);
     }
     public void updateObstacle(int obsIndex, int bulletIndex, String type){
-        ((Obstacle) items[obsIndex]).setHealth
+
+        if(((Obstacle) items[obsIndex]).getBrickType().equalsIgnoreCase("Brick") ||
+                (((Obstacle) items[obsIndex]).getBrickType().equalsIgnoreCase("Steel") &&
+                        ((Harmful_Tool) items[bulletIndex]).getDamage() == 2))
+            ((Obstacle) items[obsIndex]).setHealth
                 (((Obstacle) items[obsIndex]).getHealth() - ((Harmful_Tool) items[bulletIndex]).getDamage());
         if(((Obstacle) items[obsIndex]).getHealth()<=0) {
             if(((Obstacle) items[obsIndex]).getBrickType().equalsIgnoreCase("Brick"))

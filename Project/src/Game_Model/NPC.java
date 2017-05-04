@@ -1,10 +1,7 @@
 package Game_Model;
 
 import entityModel.Game_Map;
-import entityModel.Items.Bullet;
-import entityModel.Items.Bush;
-import entityModel.Items.Other_Item;
-import entityModel.Items.Tank;
+import entityModel.Items.*;
 
 import java.util.Random;
 
@@ -20,7 +17,7 @@ public class NPC {
     int count = 3;
     String rand;
     int mineUse;
-    int[] mined = new int[5];
+    int[] mined = new int[10];
     int mined2;
 
     public NPC(int playerNo, Game game, Game_Map map) {
@@ -55,7 +52,7 @@ public class NPC {
         }
         if(mineUse == 50) {
             mineUse = 0;
-            mined[mined2%5] = posY*10 + posX; mined2++;
+            mined[mined2%10] = posY*10 + posX; mined2++;
             return "Land";
         }
         mineUse++;
@@ -84,7 +81,7 @@ public class NPC {
             Other_Item item = map.retrieveTerrainInfo(posY, i).retrieveItemInfo(itemType);
             if(map.retrieveTerrainInfo(posY, i) instanceof Bush)
                 continue;
-            if(item !=null) {
+            else if(item !=null) {
                 if (itemType.equalsIgnoreCase("Tank") && t.getDirection().equalsIgnoreCase("Left"))
                     return "Fire";
                 else if(itemType.equalsIgnoreCase("Bullet") && ((Bullet) item).getTank() != playerNo) {
@@ -96,20 +93,22 @@ public class NPC {
                 else if(itemType.equalsIgnoreCase("Obstacle") && t.getDirection().equalsIgnoreCase("Left")) {
                     if (t.isDestructor())
                         return "Left";
-                    else
+                    else if(!(((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                         return "Fire";
                 }
-                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY, posX - 1))
+                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY, posX - 1) &&
+                        !(itemType.equalsIgnoreCase("Obstacle") &&
+                                ((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                     return "Left";
             }
-            else if(map.retrieveTerrainInfo(posY, i).retrieveItemInfo("Obstacle")!=null)
+            if(map.retrieveTerrainInfo(posY, i).retrieveItemInfo("Obstacle")!=null)
                 break;
         }
         for(int i = posX + 1 ; i <= 9 ; i++){
             Other_Item item = map.retrieveTerrainInfo(posY, i).retrieveItemInfo(itemType);
             if(map.retrieveTerrainInfo(posY, i) instanceof Bush)
                 continue;
-            if(item!=null) {
+            else if(item!=null) {
                 if (itemType.equalsIgnoreCase("Tank") && t.getDirection().equalsIgnoreCase("Right"))
                     return "Fire";
                 else if(itemType.equalsIgnoreCase("Bullet") && ((Bullet) item).getTank() != playerNo) {
@@ -121,20 +120,22 @@ public class NPC {
                 else if(itemType.equalsIgnoreCase("Obstacle") && t.getDirection().equalsIgnoreCase("Right")){
                     if (t.isDestructor())
                         return "Right";
-                    else
+                    else if(!(((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                         return "Fire";
                }
-                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY, posX + 1))
+                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY, posX + 1) &&
+                        !(itemType.equalsIgnoreCase("Obstacle") &&
+                                ((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                     return "Right";
             }
-            else if(map.retrieveTerrainInfo(posY, i).retrieveItemInfo("Obstacle")!=null)
+            if(map.retrieveTerrainInfo(posY, i).retrieveItemInfo("Obstacle")!=null)
                 break;
         }
         for(int i = posY - 1 ; i >= 0 ; i--){
             Other_Item item = map.retrieveTerrainInfo(i, posX).retrieveItemInfo(itemType);
             if(map.retrieveTerrainInfo(i, posX) instanceof Bush)
                 continue;
-            if(item != null) {
+            else if(item != null) {
                 if (itemType.equalsIgnoreCase("Tank") && t.getDirection().equalsIgnoreCase("Up"))
                     return "Fire";
                 else if(itemType.equalsIgnoreCase("Bullet") && ((Bullet) item).getTank() != playerNo) {
@@ -146,20 +147,22 @@ public class NPC {
                 else if(itemType.equalsIgnoreCase("Obstacle") && t.getDirection().equalsIgnoreCase("Up")){
                     if (t.isDestructor())
                         return "Up";
-                    else
+                    else if(!(((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                         return "Fire";
                 }
-                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY - 1, posX))
+                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY - 1, posX) &&
+                        !(itemType.equalsIgnoreCase("Obstacle") &&
+                                ((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                     return "Up";
             }
-            else if(map.retrieveTerrainInfo(i, posX).retrieveItemInfo("Obstacle")!=null)
+            if(map.retrieveTerrainInfo(i, posX).retrieveItemInfo("Obstacle")!=null)
                 break;
         }
         for(int i = posY + 1 ; i <= 9 ; i++){
             Other_Item item = map.retrieveTerrainInfo(i, posX).retrieveItemInfo(itemType);
             if(map.retrieveTerrainInfo(i, posX) instanceof Bush)
                 continue;
-            if(item !=null) {
+            else if(item !=null) {
                 if (itemType.equalsIgnoreCase("Tank") && t.getDirection().equalsIgnoreCase("Down"))
                     return "Fire";
                 else if(itemType.equalsIgnoreCase("Bullet") && ((Bullet) item).getTank() != playerNo) {
@@ -171,13 +174,15 @@ public class NPC {
                 else if(itemType.equalsIgnoreCase("Obstacle") && t.getDirection().equalsIgnoreCase("Down")){
                     if (t.isDestructor())
                         return "Down";
-                    else
+                    else if(!(((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                         return "Fire";
                 }
-                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY + 1, posX))
+                else if(!itemType.equalsIgnoreCase("Bullet") && !isMined(posY + 1, posX) &&
+                        !(itemType.equalsIgnoreCase("Obstacle") &&
+                                ((Obstacle) item).getBrickType().equalsIgnoreCase("Steel") && t.getBulletLevel() != 2))
                     return "Down";
             }
-            else if(map.retrieveTerrainInfo(i, posX).retrieveItemInfo("Obstacle")!=null)
+            if(map.retrieveTerrainInfo(i, posX).retrieveItemInfo("Obstacle")!=null)
                 break;
         }
         return "";
@@ -200,14 +205,14 @@ public class NPC {
             return rand;
         else if(rand.equalsIgnoreCase("Up") && !isMined(posY - 1, posX))
             return rand;
-        else if(rand.equalsIgnoreCase("Left") && !isMined(posY + 1, posX - 1))
+        else if(rand.equalsIgnoreCase("Down") && !isMined(posY + 1, posX - 1))
             return rand;
         else
             return "";
     }
 
     public boolean isMined(int posY, int posX){
-        for(int i = 0; i < 5 ; i++)
+        for(int i = 0; i < 10 ; i++)
             if(mined[i] == posY*10 + posX)
                 return true;
         return false;
