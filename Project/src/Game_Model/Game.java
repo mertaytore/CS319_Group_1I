@@ -64,7 +64,7 @@ public class Game {
                         gameLoop.cancel();
                         terminated = true;
                     }
-                    if (screen.getMin() == 0 && screen.getSec() == 15)
+                    if (screen.getMin() == 0 && screen.getSec() == 10)
                         sounds.playSound("Project/soundFiles/time.wav");
 
                     if (isGameOver()) {
