@@ -142,6 +142,4 @@ public class Terrain extends Item {
         }
         removeItem(type);
     }
-
-
 }

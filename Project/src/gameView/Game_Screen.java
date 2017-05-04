@@ -4,14 +4,12 @@ import Game_Controller.Input_Handler;
 import Game_Model.Player;
 import entityModel.Items.*;
 import gameView.Menu.Main_Menu;
+import gameView.Menu.Settings_Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -32,8 +30,13 @@ public class Game_Screen {
     private  JLabel p2health;
     private  JLabel time;
     private Timer timer;
+    private JButton pauseGame;
     private Highscores scores;
     int delay = 1000;
+    boolean isPaused;
+    Input_Handler input_handler;
+    Player player1;
+    Player player2;
 
     int min = 1; int sec;
     int score1; int score2;
@@ -45,11 +48,16 @@ public class Game_Screen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setMinimumSize( new Dimension(500,500));
 
+        this.input_handler = input_handler;
+        this.player1 = player1;
+        this.player2 = player2;
+
         scores = new Highscores();
         p1score = new JLabel("");
         p2score = new JLabel("");
         p1health = new JLabel("");
         p2health = new JLabel("");
+        pauseGame = new JButton("Pause");
         time = new JLabel("Remaining Time : " + min + " : " + sec);
         timer = new Timer(delay, new ActionListener() {
             @Override
@@ -176,12 +184,12 @@ public class Game_Screen {
 
                         AffineTransformOp op = rotate(img, rot);
 
-                        g.drawImage(op.filter(img,null),  j*getWidth()/10, 40 + i*(getHeight()-40)/10,
-                                getWidth()/10, (getHeight() - 40)/10, this);
+                        g.drawImage(op.filter(img,null),  j*getWidth()/10, 50 + i*(getHeight()-50)/10,
+                                getWidth()/10, (getHeight() - 50)/10, this);
                         if(pathname2 != "") {
                             op = rotate(img2, rot);
-                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, 40 + i * (getHeight()-40) / 10 + height,
-                                    getWidth() / 10 - 2 * width, (getHeight() - 40) / 10 - 2 * height, this);
+                            g.drawImage(op.filter(img2, null), j * getWidth() / 10 + width, 50 + i * (getHeight()-50) / 10 + height,
+                                    getWidth() / 10 - 2 * width, (getHeight() - 50) / 10 - 2 * height, this);
                         }
                     }
                 }
@@ -196,12 +204,19 @@ public class Game_Screen {
         gamePanel.add(p1health);
         gamePanel.add(p2health);
         gamePanel.add(time);
+        gamePanel.add(pauseGame);
         gamePanel.addKeyListener( new KeyListener() {
             public void keyPressed(KeyEvent e){
                 input_handler.checkInput(e.getKeyCode());
             }
             public void keyReleased(KeyEvent e){}
             public void keyTyped(KeyEvent e){}
+        });
+        pauseGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pauseGame();
+            }
         });
 
         frame.getContentPane().add(gamePanel);
@@ -240,11 +255,14 @@ public class Game_Screen {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         return  op;
     }
+
     public void finishGame( Player player1, Player player2){
         timer.stop();
         frame.getContentPane().remove(gamePanel);
         JButton finishB = new JButton("Finish Game");
         JPanel finish = new JPanel();
+        p1score.setText(player1.getPlayerName() + " : " + score1);
+        p2score.setText(player2.getPlayerName() + " : " + score2);
         scores.compareScores(player1.getPlayerName(), score1);
         scores.compareScores(player2.getPlayerName(), score2);
         finish.add(p1score);
@@ -258,6 +276,65 @@ public class Game_Screen {
             }
         });
         frame.getContentPane().add(finish);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public void pauseGame(){
+
+        isPaused = true;
+        input_handler.setPaused(true);
+        timer.stop();
+        JButton resume = new JButton("Resume");
+        JButton quit = new JButton("Quit");
+        JPanel resumeGame = new JPanel();
+
+        resumeGame.setBackground(Color.white);
+        resume.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timer.restart();
+                frame.getContentPane().remove(resumeGame);
+                frame.getContentPane().add(gamePanel);
+                gamePanel.setFocusable(true);
+                gamePanel.requestFocusInWindow();
+                input_handler.setPaused(false);
+                isPaused = false;
+            }
+        });
+
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                score1 = player1.getScore() - getMin()*120 - getSec()*2;
+                score2 = player2.getScore() - getMin()*120 - getSec()*2;
+                setMin(0);
+                setSec(0);
+                frame.getContentPane().remove(resumeGame);
+                timer.stop();
+                finishGame( player1, player2);
+            }
+        });
+
+        JToggleButton sound = new JToggleButton("Enable Sound");
+        sound.setSelected(Settings_Menu.isSelected());
+        sound.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent ev) {
+                if(ev.getStateChange()==ItemEvent.SELECTED){
+                    Settings_Menu.setSelected(true);
+                } else if(ev.getStateChange()==ItemEvent.DESELECTED){
+                    Settings_Menu.setSelected(false);
+                }
+            }
+        });
+
+        resumeGame.add(sound);
+        resumeGame.add(resume);
+        resumeGame.add(quit);
+
+        frame.getContentPane().remove(gamePanel);
+        frame.getContentPane().add(resumeGame);
         frame.pack();
         frame.setVisible(true);
     }
@@ -281,5 +358,9 @@ public class Game_Screen {
         }
         else
             this.sec = sec;
+    }
+
+    public boolean isPaused(){
+        return isPaused;
     }
 }

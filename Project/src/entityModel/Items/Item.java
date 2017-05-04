@@ -33,5 +33,4 @@ public class Item {
     public int getxCoordinate() {
         return xCoordinate;
     }
-
 }

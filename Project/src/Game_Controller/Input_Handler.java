@@ -22,6 +22,7 @@ public class Input_Handler {
     private boolean isCounting2;
     private String[] settings;
     private Screen_Handler handler;
+    boolean paused;
 
     public Input_Handler(){
 
@@ -34,16 +35,19 @@ public class Input_Handler {
         task = new TimerTask() {
             @Override
             public void run() {
-             if (game.isTerminated())
-                 time.cancel();
-             if(isCounting1)
-                countPlayer1++;
-             if(isCounting2)
-                countPlayer2++;
-             if(countPlayer1 > threshold)
-                 initializeAI(1);
-             if(countPlayer2 > threshold)
-                 initializeAI(2);
+
+                if(!isPaused()) {
+                    if (game.isTerminated())
+                        time.cancel();
+                    if (isCounting1)
+                        countPlayer1++;
+                    if (isCounting2)
+                        countPlayer2++;
+                    if (countPlayer1 > threshold)
+                        initializeAI(1);
+                    if (countPlayer2 > threshold)
+                        initializeAI(2);
+                }
             }
         };
         time.schedule(task,300, 500);
@@ -162,5 +166,13 @@ public class Input_Handler {
             isCounting2 = true;
             game.finishAI(2);
         }
+    }
+
+    public void setPaused(boolean paused){
+        this.paused = paused;
+    }
+
+    public boolean isPaused(){
+        return this.paused;
     }
 }

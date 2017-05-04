@@ -57,5 +57,4 @@ public class Credits_Screen extends Menu {
         });
 
     }
-
 }

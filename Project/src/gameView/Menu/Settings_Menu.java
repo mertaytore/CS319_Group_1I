@@ -31,9 +31,9 @@ public class Settings_Menu extends Menu {
     private JLabel[] labelsForCombo;
     private JLabel error;
     private JButton playGameButton;
-    private String[] names = {"Player 1 Left Move : ", "Player 1 Up Move : ", "Player 1 Right Move : ", "Player 1 Down Move : ",
-            "Player 1 Fire Move : ","Player 1 Land Move : ","Player 2 Left Move : ","Player 2 Up Move : ",
-            "Player 2 Right Move : ","Player 2 Down Move : ","Player 2 Fire Move : ","Player 2 Land Move : "};
+    private String[] names = {"Green Tank Left Move : ", "Green Tank Up Move : ", "Green Tank Right Move : ", "Green Tank Down Move : ",
+            "Green Tank Fire : ","Green Tank Land : ","Yellow Tank Left Move : ","Yellow Tank Up Move : ",
+            "Yellow Tank Right Move : ","Yellow Tank Down Move : ","Yellow Tank Fire : ","Yellow Tank Land : "};
     private JToggleButton sound;
     private static boolean selected;
 
@@ -118,7 +118,10 @@ public class Settings_Menu extends Menu {
             Iterator iter = playerSettingsMap.entrySet().iterator();
             combos[i] = new JComboBox();
             labelsForCombo[i] = new JLabel(names[i]);
-            labelsForCombo[i].setForeground(Color.cyan);
+            if(i < 6)
+                labelsForCombo[i].setForeground(Color.green);
+            else
+                labelsForCombo[i].setForeground(Color.yellow);
             while (iter.hasNext()){
                 Map.Entry pair = (Map.Entry) iter.next();
                 combos[i].addItem(pair.getKey());
@@ -202,5 +205,9 @@ public class Settings_Menu extends Menu {
 
     public static boolean isSelected(){
         return selected;
+    }
+
+    public static void setSelected(boolean select){
+         selected = select;
     }
 }

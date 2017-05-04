@@ -49,26 +49,31 @@ public class Game {
         task = new TimerTask() {
             @Override
             public void run() {
-                map.updateItems();
-                map.move(0);
-                count ++;
-                createPowerUp();
-                updateNPC();
-                updatePlayerScore();
-                screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
-                if(screen.getMin() == 0 && screen.getSec() == 0) {
-                    sounds.playSound("Project/soundFiles/boring.wav");
-                    gameLoop.cancel();
-                    terminated = true;
-                }
-                if(screen.getMin() == 0 && screen.getSec() == 15)
-                    sounds.playSound("Project/soundFiles/time.wav");
-                if(isGameOver()){
-                    sounds.playSound("Project/soundFiles/gameovr.wav");
-                    gameLoop.cancel();
-                    terminated = true;
+                if(!screen.isPaused()) {
+
+                    map.updateItems();
+                    map.move(0);
+                    count++;
+                    createPowerUp();
+                    updateNPC();
+                    updatePlayerScore();
                     screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
-                    screen.finishGame(player1, player2);
+
+                    if (screen.getMin() == 0 && screen.getSec() == 0) {
+                        sounds.playSound("Project/soundFiles/boring.wav");
+                        gameLoop.cancel();
+                        terminated = true;
+                    }
+                    if (screen.getMin() == 0 && screen.getSec() == 15)
+                        sounds.playSound("Project/soundFiles/time.wav");
+
+                    if (isGameOver()) {
+                        sounds.playSound("Project/soundFiles/gameovr.wav");
+                        gameLoop.cancel();
+                        terminated = true;
+                        screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
+                        screen.finishGame(player1, player2);
+                    }
                 }
             }
         };
@@ -76,17 +81,17 @@ public class Game {
     }
 
     public void updatePlayerState(int playerNo, String input){
-        if(input.equalsIgnoreCase("Fire")){
-            map.fireBullet(playerNo);
-        }
-        else if (input.equalsIgnoreCase("Land")){
-            map.landMine(playerNo);
-        }
-        else{
-            boolean changed = map.changeDirection(playerNo, input);
-            if(!changed) {
-                map.updateItems();
-                map.move(playerNo);
+        if(!screen.isPaused()) {
+            if (input.equalsIgnoreCase("Fire")) {
+                map.fireBullet(playerNo);
+            } else if (input.equalsIgnoreCase("Land")) {
+                map.landMine(playerNo);
+            } else {
+                boolean changed = map.changeDirection(playerNo, input);
+                if (!changed) {
+                    map.updateItems();
+                    map.move(playerNo);
+                }
             }
         }
     }
@@ -156,15 +161,15 @@ public class Game {
     }
 
     public void startAI(int playerNo){
-        sounds.playSound("Project/soundFiles/hmrcando.wav");
-        Tank tank = retrieveTank(playerNo);
-        if(tank != null) {
-            tank.setNPC(true);
-            if(tank.getPlayerNo() == 1)
-                npc1 = new NPC(playerNo, this, map);
-            if(tank.getPlayerNo() == 2)
-                npc2 = new NPC(playerNo, this, map);
-        }
+            sounds.playSound("Project/soundFiles/hmrcando.wav");
+            Tank tank = retrieveTank(playerNo);
+            if (tank != null) {
+                tank.setNPC(true);
+                if (tank.getPlayerNo() == 1)
+                    npc1 = new NPC(playerNo, this, map);
+                if (tank.getPlayerNo() == 2)
+                    npc2 = new NPC(playerNo, this, map);
+            }
     }
 
     public void finishAI(int playerNo){
@@ -180,19 +185,20 @@ public class Game {
     }
 
     public void updateNPC(){
-
-        String input;
-        if(npc1 != null){
-            map.updateItems();
-            input = npc1.handleNPC();
-            if(input != "")
-                updatePlayerState(1, input);
-        }
-        if(npc2 != null){
-            map.updateItems();
-            input = npc2.handleNPC();
-            if(input != "")
-                updatePlayerState(2, input);
+        if(!screen.isPaused()) {
+            String input;
+            if (npc1 != null) {
+                map.updateItems();
+                input = npc1.handleNPC();
+                if (input != "")
+                    updatePlayerState(1, input);
+            }
+            if (npc2 != null) {
+                map.updateItems();
+                input = npc2.handleNPC();
+                if (input != "")
+                    updatePlayerState(2, input);
+            }
         }
     }
 

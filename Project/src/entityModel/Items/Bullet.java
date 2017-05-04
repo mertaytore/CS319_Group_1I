@@ -21,5 +21,4 @@ public class Bullet extends Harmful_Tool implements Movable {
     public String getDirection() {
         return direction;
     }
-
 }

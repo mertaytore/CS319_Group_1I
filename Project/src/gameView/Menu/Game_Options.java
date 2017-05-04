@@ -37,10 +37,10 @@ public class Game_Options extends Menu {
 
     public void displayGameOptions(){
 
-        player1 = new JLabel("Player1 name:");
-        player1.setForeground(Color.white);
-        player2 = new JLabel("Player2 name:");
-        player2.setForeground(Color.white);
+        player1 = new JLabel("Green Tank Player Name : ");
+        player1.setForeground(Color.green);
+        player2 = new JLabel("Yellow Tank Player Name : ");
+        player2.setForeground(Color.yellow);
 
         p1name = new JTextField("NPC1");
         p2name = new JTextField("NPC2");

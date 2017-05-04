@@ -30,7 +30,7 @@ public class Menu {
         else
             this.frame = frame;
 
-        this.frame.setMinimumSize( new Dimension(600,600));
+        this.frame.setMinimumSize( new Dimension(620,620));
 
         background = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
 
