@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Sound implements LineListener{
 
     boolean playCompleted = true;
-
+    Clip audioClip;
 
     public void playSound(String audioFilePath) {
 
@@ -27,7 +27,7 @@ public class Sound implements LineListener{
 
                 DataLine.Info info = new DataLine.Info(Clip.class, format);
 
-                Clip audioClip = (Clip) AudioSystem.getLine(info);
+                audioClip = (Clip) AudioSystem.getLine(info);
 
                 audioClip.addLineListener(this);
 
@@ -62,7 +62,9 @@ public class Sound implements LineListener{
 
         if (type == LineEvent.Type.START)
             playCompleted = false;
-        else if (type == LineEvent.Type.STOP)
+        else if (type == LineEvent.Type.STOP) {
             playCompleted = true;
+            audioClip.close();
+        }
     }
 }

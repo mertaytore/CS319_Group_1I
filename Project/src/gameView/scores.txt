@@ -1,3 +1,5 @@
+NPC2 760
+NPC2 760
 slash 598
 doraemon 534
 bananaJoe 531
@@ -6,5 +8,3 @@ redRightHand 510
 Batman 472
 zero 456
 smithers 420
-NPC1 412
-NPC2 408
