@@ -342,6 +342,8 @@ public class Game_Screen {
 
         JSlider volume = new JSlider(JSlider.HORIZONTAL,
                 vol_min, vol_max, (int) Settings_Menu.getVol() + 10);
+        JLabel volName = new JLabel("  Volume Level Adjustment :  ");
+        volName.setForeground(Color.darkGray);
 
         volume.addChangeListener(new ChangeListener() {
             @Override
@@ -354,16 +356,17 @@ public class Game_Screen {
         volume.setMinorTickSpacing(1);
         volume.setPaintTicks(true);
         volume.setPaintLabels(true);
-        volume.setForeground(Color.white);
-
+        volume.setForeground(Color.darkGray);
 
         resumeGame.add(scr1);
         resumeGame.add(scr2);
         resumeGame.add(remainTime);
         resumeGame.add(sound);
+        resumeGame.add(volName);
         resumeGame.add(volume);
         resumeGame.add(resume);
         resumeGame.add(quit);
+        resumeGame.setPreferredSize(new Dimension(500, 500));
 
         frame.getContentPane().remove(gamePanel);
         frame.getContentPane().add(resumeGame);

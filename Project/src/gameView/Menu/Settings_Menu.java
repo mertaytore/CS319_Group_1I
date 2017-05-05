@@ -96,6 +96,8 @@ public class Settings_Menu extends Menu {
 
         JSlider volume = new JSlider(JSlider.HORIZONTAL,
                 vol_min, vol_max, (int) vol + 10);
+        JLabel volName = new JLabel("  Volume Level Adjustment :  ");
+        volName.setForeground(Color.white);
 
         volume.addChangeListener(new ChangeListener() {
             @Override
@@ -171,6 +173,7 @@ public class Settings_Menu extends Menu {
         settingsPanel.add(change);
         settingsPanel.add(returnB);
         settingsPanel.add(sound);
+        settingsPanel.add(volName);
         settingsPanel.add(volume);
         settingsPanel.add(playGameButton);
         settingsPanel.add(error);
