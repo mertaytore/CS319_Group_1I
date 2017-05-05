@@ -205,7 +205,7 @@ public class NPC {
             return rand;
         else if(rand.equalsIgnoreCase("Up") && !isMined(posY - 1, posX))
             return rand;
-        else if(rand.equalsIgnoreCase("Down") && !isMined(posY + 1, posX - 1))
+        else if(rand.equalsIgnoreCase("Down") && !isMined(posY + 1, posX))
             return rand;
         else
             return "";
