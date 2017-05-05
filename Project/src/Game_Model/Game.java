@@ -68,7 +68,11 @@ public class Game {
                         sounds.playSound("Project/soundFiles/time.wav");
 
                     if (isGameOver()) {
-                        sounds.playSound("Project/soundFiles/gameovr.wav");
+                        if(player1.getScore() > player2.getScore() && player1.getScore() < 200 ||
+                                player2.getScore() > player1.getScore() && player2.getScore() < 200)
+                            sounds.playSound("Project/soundFiles/style.wav");
+                        else
+                            sounds.playSound("Project/soundFiles/gameovr.wav");
                         gameLoop.cancel();
                         terminated = true;
                         screen.displayScore(player1.getScore(), player2.getScore(), player1.getPlayerName(), player2.getPlayerName());
@@ -147,6 +151,7 @@ public class Game {
                 sounds.playSound("Project/soundFiles/joking.wav");
             else if(player2.getScore() >= 400 && preScore2 < 400)
                 sounds.playSound("Project/soundFiles/gotten.wav");
+
     }
 
     public Tank retrieveTank(int playerNo){

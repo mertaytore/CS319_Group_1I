@@ -171,9 +171,9 @@ public class Game_Screen {
                             else if(t.getDirection().equalsIgnoreCase("Down"))
                                 rot = "Down";
                             if(t.getPlayerNo() == 1)
-                                p1health.setText("Player1 Health : " + t.getHealth() + "  ");
+                                p1health.setText(player1.getPlayerName() + " Health : " + t.getHealth() + "  ");
                             else if(t.getPlayerNo() == 2)
-                                p2health.setText("Player2 Health : " + t.getHealth() + "  ");
+                                p2health.setText(player2.getPlayerName() + " Health : " + t.getHealth() + "  ");
                         }
                         if(terrains[i][j] instanceof Bush){
                             pathname = "Project/imageFiles/bush.png";

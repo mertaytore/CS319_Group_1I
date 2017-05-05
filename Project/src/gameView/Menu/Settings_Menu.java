@@ -156,7 +156,7 @@ public class Settings_Menu extends Menu {
             settingsPanel.add(combos[i]);
         }
 
-        change = new JButton("Change Settings");
+        change = new JButton("Change Keyboard Settings");
         returnB = new JButton("Back to Main Menu");
         sound = new JToggleButton("Enable Sound");
         sound.setSelected(selected);
