@@ -1,10 +1,9 @@
-# CS319_Group_1I
+# CS319_Group_1I - Battle City
 Project repository for CS319 Object-Oriented Software Engineering - Spring 2017 
 
 # Group Members
 - Mert Aytöre	
-- Mert Özerdem	
-- Muhammed Yusuf Satıcı	
+- Muhammed Yusuf Satıcı
 - Mehmet Orçun Yalçın
 
 # Project Description
@@ -13,3 +12,6 @@ In this project, we will be remaking the Atari game of Battle City and we will b
 # Project Meetings
 - Mondays 17.40 - 19.40
 - Thurdays 17.40 - 19.40
+
+# How to play
+Clone this repository to your computer and run Battle_City.jar file. 
