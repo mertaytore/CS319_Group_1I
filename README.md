@@ -14,4 +14,5 @@ In this project, we will be remaking the Atari game of Battle City and we will b
 - Thurdays 17.40 - 19.40
 
 # How to play
-Clone this repository to your computer and run Battle_City.jar file. 
+Download Play_BattleCity.zip file and run the .jar file inside.
+     
