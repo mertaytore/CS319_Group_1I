@@ -83,6 +83,8 @@ public class Game_Screen {
         gamePanel = new JPanel(){
             public void paintComponent(Graphics g)
             {
+                super.paintComponent(g);
+
                 BufferedImage img = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
                 BufferedImage img2 = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
                 String pathname = "" ;
