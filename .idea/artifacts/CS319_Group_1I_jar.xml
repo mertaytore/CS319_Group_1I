@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="CS319_Group_1I:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CS319_Group_1I_jar</output-path>
+    <root id="archive" name="CS319_Group_1I.jar">
+      <element id="module-output" name="Project" />
+    </root>
+  </artifact>
+</component>
