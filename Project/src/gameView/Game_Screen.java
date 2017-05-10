@@ -48,7 +48,7 @@ public class Game_Screen {
     public Game_Screen(Input_Handler input_handler, Player player1, Player player2) {
 
         frame = new JFrame();
-        frame.setBackground(Color.BLACK);
+        frame.setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setMinimumSize( new Dimension(500,500));
 
