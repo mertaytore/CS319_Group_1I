@@ -200,6 +200,7 @@ public class Game_Screen {
             }
         };
 
+        gamePanel.setBackground(Color.white);
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();
         gamePanel.setPreferredSize(new Dimension(500, 500));
